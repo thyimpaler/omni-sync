@@ -61,7 +61,7 @@ export const Hero = () => {
                         Never Let a <br className="hidden md:block" />Customer <span className="text-gradient">Wait. Ever.</span>
                     </h1>
                     <p className="text-xl text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed">
-                        The unified social inbox that brings WhatsApp and Instagram DMs together. Prioritize urgent messages, track SLAs, and close tickets 3x faster with AI assistance.
+                        The unified social inbox that brings WhatsApp and Instagram DMs together. Prioritize urgent messages, track SLAs, and let AI assistance take the routine replies.
                     </p>
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                         <Link to="/signup" className="w-full sm:w-auto">

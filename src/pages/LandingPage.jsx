@@ -1,12 +1,10 @@
 import React, { useEffect } from 'react';
 import { Navbar } from '../components/Navbar';
 import { Hero } from '../components/Hero';
-import { Stats } from '../components/Stats';
 import { Features } from '../components/Features';
 import { HowItWorks } from '../components/HowItWorks';
 import { Pricing } from '../components/Pricing';
 import { ROICalculator } from '../components/ROICalculator';
-import { Testimonials } from '../components/Testimonials';
 import { CTA } from '../components/CTA';
 import { Footer } from '../components/Footer';
 
@@ -24,12 +22,10 @@ export const LandingPage = () => {
 
             <Navbar />
             <Hero />
-            <Stats />
             <Features />
             <HowItWorks />
             <Pricing />
             <ROICalculator />
-            <Testimonials />
             <CTA />
             <Footer />
         </div>

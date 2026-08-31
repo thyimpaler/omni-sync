@@ -4,6 +4,8 @@
  * about layout and the numbers stay easy to change.
  */
 
+import type { MissedAction, Policy } from '../types';
+
 /* — 1c Queue & assignment — */
 
 export const queueContext = { agentsOnline: 5, complianceToday: '96%' };
@@ -87,7 +89,7 @@ export const topSubjects = [
 
 export const settingsTabs = ['Targets', 'Business hours', 'Saved replies', 'Notifications', 'Team'];
 
-export const policies = [
+export const policies: Policy[] = [
     {
         n: '01',
         name: 'VIP customers',
@@ -117,7 +119,7 @@ export const policies = [
     },
 ];
 
-export const missedActions = [
+export const missedActions: MissedAction[] = [
     {
         title: 'Move to the top of the queue',
         note: 'Every agent sees it first, regardless of assignment',

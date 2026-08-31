@@ -7,15 +7,17 @@
  * demo defaults so the app still runs without a backend.
  */
 
-const DEV_FALLBACKS = {
+type EnvKey = 'VITE_SUPABASE_URL' | 'VITE_SUPABASE_ANON_KEY' | 'VITE_API_BASE';
+
+const DEV_FALLBACKS: Record<EnvKey, string> = {
     VITE_SUPABASE_URL: 'https://placeholder.supabase.co',
     VITE_SUPABASE_ANON_KEY: 'placeholder_key',
     VITE_API_BASE: 'http://localhost:3001/api',
 };
 
-const warned = new Set();
+const warned = new Set<EnvKey>();
 
-const read = (key) => {
+const read = (key: EnvKey): string => {
     const value = import.meta.env[key];
     if (value) return value;
 

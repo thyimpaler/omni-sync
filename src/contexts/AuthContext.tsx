@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import type { ReactNode } from 'react';
+import type { User } from '@supabase/supabase-js';
 import { getSupabase } from '../lib/supabase';
 import { AuthContext } from './auth-context';
+import type { AuthValue } from './auth-context';
 
-export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
+    const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -29,7 +32,7 @@ export const AuthProvider = ({ children }) => {
         };
     }, []);
 
-    const value = {
+    const value: AuthValue = {
         user,
         loading,
         signUp: async (data) => (await getSupabase()).auth.signUp(data),

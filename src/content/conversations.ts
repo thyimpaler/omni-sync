@@ -3,7 +3,9 @@
  * and the queue table (1c), which previously carried separate copies of the
  * same people. Shaped from the design's demo data.
  */
-export const conversations = [
+import type { CannedReply, Conversation } from '../types';
+
+export const conversations: Conversation[] = [
     {
         id: 1,
         name: 'Amanda Smith',
@@ -193,11 +195,11 @@ export const conversations = [
     },
 ];
 
-export const cannedReplies = [
+export const cannedReplies: CannedReply[] = [
     { command: '/refund', label: 'start a refund' },
     { command: '/quote', label: 'bulk pricing' },
     { command: '/track', label: 'delivery status' },
     { command: '/note', label: 'internal' },
 ];
 
-export const agents = ['Alex A.', 'Priya O.', 'Marcus W.', 'Lena O.'];
+export const agents: string[] = ['Alex A.', 'Priya O.', 'Marcus W.', 'Lena O.'];

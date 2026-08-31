@@ -3,9 +3,28 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { Logo } from './Logo';
 import { useSeo } from '../lib/seo';
+import type { ReactNode } from 'react';
+
+interface AuthShellProps {
+    title: string;
+    subtitle?: string;
+    seoTitle?: string;
+    seoDescription?: string;
+    width?: string;
+    children: ReactNode;
+    footer?: ReactNode;
+}
 
 /** Shared frame for log in / sign up / password reset. */
-export const AuthShell = ({ title, subtitle, seoTitle, seoDescription, width = 'max-w-md', children, footer }) => {
+export const AuthShell = ({
+    title,
+    subtitle,
+    seoTitle,
+    seoDescription,
+    width = 'max-w-md',
+    children,
+    footer,
+}: AuthShellProps) => {
     useSeo({ title: seoTitle ?? title, description: seoDescription });
 
     return (

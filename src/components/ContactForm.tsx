@@ -1,12 +1,22 @@
 import React, { useState } from 'react';
+import type { ChangeEvent, FormEvent } from 'react';
 import { motion } from 'framer-motion';
 import { Send, Loader2, CheckCircle2 } from 'lucide-react';
 import { Field } from './Field';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-const validate = ({ name, email, message }, requireMessage) => {
-    const errors = {};
+interface ContactValues {
+    name: string;
+    email: string;
+    company: string;
+    message: string;
+}
+
+type ContactErrors = Partial<Record<keyof ContactValues, string>>;
+
+const validate = ({ name, email, message }: ContactValues, requireMessage: boolean): ContactErrors => {
+    const errors: ContactErrors = {};
     if (!name.trim()) errors.name = 'Please tell us your name.';
     if (!email.trim()) errors.email = 'We need an email to reply to.';
     else if (!EMAIL_RE.test(email.trim())) errors.email = 'That email address looks incomplete.';
@@ -19,6 +29,16 @@ const validate = ({ name, email, message }, requireMessage) => {
  * submission is acknowledged locally and the mailto fallback below the form is
  * the route that actually reaches a human.
  */
+interface ContactFormProps {
+    messageLabel?: string;
+    messagePlaceholder?: string;
+    submitLabel?: string;
+    successTitle?: string;
+    successMessage?: string;
+    requireMessage?: boolean;
+    onDone?: () => void;
+}
+
 export const ContactForm = ({
     messageLabel = 'How can we help?',
     messagePlaceholder = 'Team size, channels you support, anything you want covered on the call…',
@@ -27,22 +47,23 @@ export const ContactForm = ({
     successMessage = "Our team will get back to you within one business day.",
     requireMessage = false,
     onDone,
-}) => {
-    const [values, setValues] = useState({ name: '', email: '', company: '', message: '' });
-    const [errors, setErrors] = useState({});
-    const [status, setStatus] = useState('idle'); // idle | submitting | success
+}: ContactFormProps) => {
+    const [values, setValues] = useState<ContactValues>({ name: '', email: '', company: '', message: '' });
+    const [errors, setErrors] = useState<ContactErrors>({});
+    const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
 
-    const update = (key) => (e) => {
-        setValues((v) => ({ ...v, [key]: e.target.value }));
-        setErrors((prev) => (prev[key] ? { ...prev, [key]: undefined } : prev));
-    };
+    const update =
+        (key: keyof ContactValues) => (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+            setValues((v) => ({ ...v, [key]: e.target.value }));
+            setErrors((prev) => (prev[key] ? { ...prev, [key]: undefined } : prev));
+        };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const nextErrors = validate(values, requireMessage);
         setErrors(nextErrors);
         if (Object.keys(nextErrors).length > 0) {
-            const firstInvalid = e.currentTarget.querySelector('[aria-invalid="true"]');
+            const firstInvalid = e.currentTarget.querySelector<HTMLElement>('[aria-invalid="true"]');
             firstInvalid?.focus();
             return;
         }

@@ -3,7 +3,7 @@ import { ArrowRight } from 'lucide-react';
 import { PageShell } from '../components/PageShell';
 import { blogPosts } from '../content/site';
 
-const formatDate = (iso) =>
+const formatDate = (iso: string) =>
     new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 
 export const BlogPage = () => (

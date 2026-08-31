@@ -4,7 +4,7 @@
  * about layout and the numbers stay easy to change.
  */
 
-import type { MissedAction, Policy } from '../types';
+import type { HourBar, MissedAction, OnboardingChannel, OnboardingStep, Policy } from '../types';
 
 /* — 1c Queue & assignment — */
 
@@ -50,7 +50,7 @@ export const reportRanges = {
 };
 
 /* height is the bar's share of the tallest hour; state drives the fill */
-export const hourly = [
+export const hourly: HourBar[] = [
     { hour: '08', height: 24, state: 'comfortable' },
     { hour: '09', height: 34, state: 'comfortable' },
     { hour: '10', height: 41, state: 'comfortable' },
@@ -154,14 +154,14 @@ export const recentChanges = [
 
 /* — 1e Onboarding — */
 
-export const onboardingSteps = [
+export const onboardingSteps: OnboardingStep[] = [
     { n: '✓', title: 'Workspace', note: 'Northfield Supply Co.', done: true },
     { n: '2', title: 'Connect channels', note: '1 of 2 connected', current: true },
     { n: '3', title: 'Response targets' },
     { n: '4', title: 'Invite your team' },
 ];
 
-export const onboardingChannels = [
+export const onboardingChannels: OnboardingChannel[] = [
     {
         name: 'WhatsApp Business',
         note: '+44 7700 900412 · Northfield Supply · connected 2 minutes ago',

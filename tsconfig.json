@@ -13,8 +13,6 @@
     "noFallthroughCasesInSwitch": true,
     "exactOptionalPropertyTypes": false,
 
-    "allowJs": true,
-    "checkJs": false,
     "noEmit": true,
     "isolatedModules": true,
     "verbatimModuleSyntax": true,

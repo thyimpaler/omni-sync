@@ -17,7 +17,7 @@ export const Navbar = () => {
         if (!mobileMenuOpen) return;
         const { overflow } = document.body.style;
         document.body.style.overflow = 'hidden';
-        const onKeyDown = (e) => e.key === 'Escape' && setMobileMenuOpen(false);
+        const onKeyDown = (e: KeyboardEvent) => e.key === 'Escape' && setMobileMenuOpen(false);
         window.addEventListener('keydown', onKeyDown);
         return () => {
             document.body.style.overflow = overflow;

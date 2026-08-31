@@ -3,15 +3,16 @@ import { Link } from 'react-router-dom';
 import { Mail, ArrowLeft } from 'lucide-react';
 import { AuthShell } from '../components/AuthShell';
 import { Field } from '../components/Field';
+import type { FormEvent } from 'react';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 export const ForgotPasswordPage = () => {
     const [email, setEmail] = useState('');
-    const [error, setError] = useState();
+    const [error, setError] = useState<string | undefined>();
     const [sent, setSent] = useState(false);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!EMAIL_RE.test(email.trim())) {
             setError('Enter the email you signed up with.');

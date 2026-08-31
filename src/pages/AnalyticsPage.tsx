@@ -2,18 +2,21 @@ import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import { reportRanges, hourly, byChannel, agentPerformance, topSubjects } from '../content/workspace';
 import { toCsv, downloadCsv } from '../lib/csv';
+import type { HourState } from '../types';
 
-const RANGES = Object.keys(reportRanges);
+type RangeKey = keyof typeof reportRanges;
+
+const RANGES = Object.keys(reportRanges) as RangeKey[];
 
 /* Fill carries the meaning, as in the design: solid dark = past target,
    accent = within a minute of it, tint = comfortable. */
-const BAR = {
+const BAR: Record<HourState, string> = {
     past: 'bg-accent-900',
     near: 'bg-accent-600',
     comfortable: 'bg-[color-mix(in_srgb,#1d1f20_22%,transparent)]',
 };
 
-const LEGEND = [
+const LEGEND: { state: HourState; label: string }[] = [
     { state: 'past', label: 'Past target' },
     { state: 'near', label: 'Within 1 min of target' },
     { state: 'comfortable', label: 'Comfortable' },
@@ -21,11 +24,11 @@ const LEGEND = [
 
 /* 1d — the manager's SLA view, one question per block. */
 export const AnalyticsPage = () => {
-    const [range, setRange] = useState('30 days');
+    const [range, setRange] = useState<RangeKey>('30 days');
     const { caption, metrics } = reportRanges[range];
 
     const exportCsv = () => {
-        const csv = toCsv(
+        const csv = toCsv<(typeof metrics)[number]>(
             [
                 { header: 'Metric', value: (r) => r.label },
                 { header: 'Value', value: (r) => r.value },
@@ -93,7 +96,7 @@ export const AnalyticsPage = () => {
                                     className={`w-full ${BAR[bar.state]}`}
                                     style={{ height: `${bar.height}%` }}
                                     role="img"
-                                    aria-label={`${bar.hour}:00 — ${LEGEND.find((l) => l.state === bar.state).label}`}
+                                    aria-label={`${bar.hour}:00 — ${LEGEND.find((l) => l.state === bar.state)?.label ?? ''}`}
                                 />
                             </div>
                         ))}

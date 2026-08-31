@@ -3,16 +3,18 @@ import { Send } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { cannedReplies } from '../content/conversations';
 import { useWorkspace, CURRENT_AGENT } from '../state/workspace-context';
+import type { FormEvent, ReactNode } from 'react';
+import type { Message as ThreadMessage } from '../types';
 
-const initials = (name) =>
+const initials = (name: string) =>
     name
         .split(' ')
-        .map((part) => part[0])
+        .map((part) => part[0] ?? '')
         .join('')
         .slice(0, 2)
         .toUpperCase();
 
-const Message = ({ message }) => {
+const Message = ({ message }: { message: ThreadMessage }) => {
     if (message.sender === 'rule') {
         return (
             <li className="flex gap-4">
@@ -44,7 +46,7 @@ const Message = ({ message }) => {
     );
 };
 
-const RecordBlock = ({ title, children }) => (
+const RecordBlock = ({ title, children }: { title: string; children: ReactNode }) => (
     <section className="border-b px-4 py-4 rule-soft">
         <h3 className="label mb-3">{title}</h3>
         {children}
@@ -64,7 +66,7 @@ export const ChatWindow = () => {
         );
     }
 
-    const send = (e) => {
+    const send = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const text = draft.trim();
         if (!text) return;

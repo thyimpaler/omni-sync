@@ -4,6 +4,9 @@ import toast from 'react-hot-toast';
 import { Mail, Lock, User, Briefcase, ArrowRight, Eye, EyeOff } from 'lucide-react';
 import { AuthShell } from '../components/AuthShell';
 import { Field } from '../components/Field';
+import type { ChangeEvent, FormEvent } from 'react';
+
+type SignupField = 'fullName' | 'company' | 'email' | 'password' | 'plan';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
@@ -14,18 +17,19 @@ const PLANS = [
 
 export const SignupPage = () => {
     const [values, setValues] = useState({ fullName: '', company: '', email: '', password: '', plan: 'team' });
-    const [errors, setErrors] = useState({});
+    const [errors, setErrors] = useState<Partial<Record<SignupField, string>>>({});
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
-    const update = (key) => (e) => {
-        setValues((v) => ({ ...v, [key]: e.target.value }));
-        setErrors((prev) => (prev[key] ? { ...prev, [key]: undefined } : prev));
-    };
+    const update =
+        (key: SignupField) => (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+            setValues((v) => ({ ...v, [key]: e.target.value }));
+            setErrors((prev) => (prev[key] ? { ...prev, [key]: undefined } : prev));
+        };
 
-    const handleSignup = (e) => {
+    const handleSignup = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const nextErrors = {};
+        const nextErrors: Partial<Record<SignupField, string>> = {};
         if (!values.fullName.trim()) nextErrors.fullName = 'We need a name for your account.';
         if (!EMAIL_RE.test(values.email.trim())) nextErrors.email = 'Enter a valid work email.';
         if (values.password.length < 8) nextErrors.password = 'Use at least 8 characters.';

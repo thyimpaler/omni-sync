@@ -2,6 +2,23 @@ import React from 'react';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
 import { useSeo } from '../lib/seo';
+import type { ReactNode } from 'react';
+
+interface PageShellProps {
+    title: string;
+    eyebrow?: string;
+    intro?: string;
+    seoTitle?: string;
+    seoDescription?: string;
+    width?: string;
+    children: ReactNode;
+}
+
+export interface ContentSection {
+    heading: string;
+    paragraphs?: string[];
+    bullets?: string[];
+}
 
 /** Shared chrome for every non-landing marketing page. */
 export const PageShell = ({
@@ -12,7 +29,7 @@ export const PageShell = ({
     seoDescription,
     width = 'max-w-[860px]',
     children,
-}) => {
+}: PageShellProps) => {
     useSeo({ title: seoTitle ?? title, description: seoDescription });
 
     return (
@@ -35,7 +52,7 @@ export const PageShell = ({
 };
 
 /** Renders the {heading, paragraphs, bullets} shape used by the content module. */
-export const ContentSections = ({ sections }) => (
+export const ContentSections = ({ sections }: { sections: ContentSection[] }) => (
     <div className="space-y-10">
         {sections.map((section) => (
             <section key={section.heading}>

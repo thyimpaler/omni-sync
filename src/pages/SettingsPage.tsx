@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import { settingsTabs, policyEffect, recentChanges } from '../content/workspace';
 import { useWorkspace } from '../state/workspace-context';
+import type { Policy } from '../types';
 
-const blankPolicy = (index) => ({
+const blankPolicy = (index: number): Policy => ({
     n: String(index + 1).padStart(2, '0'),
     name: 'New policy',
     condition: 'Describe when this policy applies',
@@ -19,7 +20,7 @@ export const SettingsPage = () => {
     const [tab, setTab] = useState('Targets');
     const [draft, setDraft] = useState(policies);
     const [saved, setSaved] = useState(policies);
-    const [editing, setEditing] = useState(null);
+    const [editing, setEditing] = useState<string | null>(null);
 
     // Reset the draft when the saved policies change, adjusting state during
     // render rather than in an effect (no second render pass).
@@ -30,7 +31,7 @@ export const SettingsPage = () => {
 
     const dirty = JSON.stringify(draft) !== JSON.stringify(policies);
 
-    const updatePolicy = (n, patch) =>
+    const updatePolicy = (n: string, patch: Partial<Policy>) =>
         setDraft((prev) => prev.map((p) => (p.n === n ? { ...p, ...patch } : p)));
 
     const addPolicy = () => {

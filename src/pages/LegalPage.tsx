@@ -28,7 +28,9 @@ const OTHER_LINKS = [
     { to: '/cookies', label: 'Cookie Policy', key: 'cookies' },
 ];
 
-export const LegalPage = ({ doc }) => {
+type DocKey = keyof typeof DOCS;
+
+export const LegalPage = ({ doc }: { doc: DocKey }) => {
     const { title, intro, sections } = DOCS[doc];
 
     return (

@@ -5,15 +5,19 @@ import { Check } from 'lucide-react';
 import { Logo } from '../components/Logo';
 import { onboardingSteps, onboardingChannels } from '../content/workspace';
 import { useSeo } from '../lib/seo';
+import type { OnboardingChannel } from '../types';
 
 /* 1e — connect a channel, step 2 of 4. */
 export const OnboardingPage = () => {
-    useSeo({ title: 'Set up your workspace', seoDescription: 'Connect WhatsApp Business and Instagram Direct to your OmniSync workspace.' });
+    useSeo({
+        title: 'Set up your workspace',
+        description: 'Connect WhatsApp Business and Instagram Direct to your OmniSync workspace.',
+    });
 
-    const [channels, setChannels] = useState(onboardingChannels);
+    const [channels, setChannels] = useState<OnboardingChannel[]>(onboardingChannels);
     const connectedCount = channels.filter((c) => c.status === 'Connected').length;
 
-    const connect = (name) => {
+    const connect = (name: string) => {
         setChannels((prev) =>
             prev.map((c) =>
                 c.name === name

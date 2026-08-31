@@ -4,10 +4,11 @@ import toast from 'react-hot-toast';
 import { Mail, Lock, ArrowRight, Eye, EyeOff } from 'lucide-react';
 import { AuthShell } from '../components/AuthShell';
 import { Field } from '../components/Field';
+import type { ChangeEvent, FormEvent, SVGProps } from 'react';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-const GoogleIcon = (props) => (
+const GoogleIcon = (props: SVGProps<SVGSVGElement>) => (
     <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
         <path fill="#EA4335" d="M12 10.2v3.9h5.5a4.7 4.7 0 0 1-2 3.1l3.2 2.5c1.9-1.7 3-4.3 3-7.3 0-.7-.1-1.4-.2-2H12z" />
         <path fill="#34A853" d="M6.6 14.3 5.9 15l-2.5 2A9 9 0 0 0 12 21c2.4 0 4.5-.8 6-2.2l-3.2-2.5c-.8.6-1.9.9-2.8.9-2.3 0-4.2-1.5-4.9-3.6z" />
@@ -18,18 +19,18 @@ const GoogleIcon = (props) => (
 
 export const LoginPage = () => {
     const [values, setValues] = useState({ email: '', password: '' });
-    const [errors, setErrors] = useState({});
+    const [errors, setErrors] = useState<Partial<Record<'email' | 'password', string>>>({});
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
-    const update = (key) => (e) => {
+    const update = (key: 'email' | 'password') => (e: ChangeEvent<HTMLInputElement>) => {
         setValues((v) => ({ ...v, [key]: e.target.value }));
         setErrors((prev) => (prev[key] ? { ...prev, [key]: undefined } : prev));
     };
 
-    const handleLogin = (e) => {
+    const handleLogin = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const nextErrors = {};
+        const nextErrors: Partial<Record<'email' | 'password', string>> = {};
         if (!EMAIL_RE.test(values.email.trim())) nextErrors.email = 'Enter a valid email address.';
         if (values.password.length < 8) nextErrors.password = 'Passwords are at least 8 characters.';
         setErrors(nextErrors);

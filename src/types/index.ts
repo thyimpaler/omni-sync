@@ -115,3 +115,30 @@ export interface WorkspaceValue {
     missedActions: MissedAction[];
     toggleMissedAction: (title: string) => void;
 }
+
+/** Reports: how a given hour's bar reads against its target. */
+export type HourState = 'past' | 'near' | 'comfortable';
+
+export interface HourBar {
+    hour: string;
+    /** Share of the tallest hour, as a percentage. */
+    height: number;
+    state: HourState;
+}
+
+export interface OnboardingStep {
+    n: string;
+    title: string;
+    note?: string;
+    done?: boolean;
+    current?: boolean;
+}
+
+export interface OnboardingChannel {
+    name: string;
+    note: string;
+    status: string | null;
+    action: string;
+    primary?: boolean;
+    muted?: boolean;
+}

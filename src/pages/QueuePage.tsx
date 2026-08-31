@@ -4,8 +4,10 @@ import toast from 'react-hot-toast';
 import { agentLoad, queueContext } from '../content/workspace';
 import { useWorkspace, waitingSeconds, CURRENT_AGENT } from '../state/workspace-context';
 import { toCsv, downloadCsv } from '../lib/csv';
+import type { CsvColumn } from '../lib/csv';
+import type { Conversation } from '../types';
 
-const COLUMNS = [
+const COLUMNS: CsvColumn<Conversation>[] = [
     { header: 'Customer', value: (r) => r.name },
     { header: 'Channel', value: (r) => r.channel },
     { header: 'Subject', value: (r) => r.subject },
@@ -40,7 +42,7 @@ export const QueuePage = () => {
         { label: 'Compliance today', value: queueContext.complianceToday },
     ];
 
-    const openConversation = (id) => {
+    const openConversation = (id: number) => {
         setActiveId(id);
         navigate('/example');
     };

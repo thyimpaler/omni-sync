@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useId, useRef } from 'react';
+import type { KeyboardEvent as ReactKeyboardEvent, ReactNode } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 
@@ -9,9 +10,18 @@ const FOCUSABLE = 'a[href], button:not([disabled]), input, select, textarea, [ta
  * trapped while it is open, the page behind stops scrolling, and focus returns
  * to whatever opened it.
  */
-export const Modal = ({ open, onClose, title, description, children, className = '' }) => {
-    const panelRef = useRef(null);
-    const openerRef = useRef(null);
+interface ModalProps {
+    open: boolean;
+    onClose: () => void;
+    title?: string;
+    description?: string;
+    children: ReactNode;
+    className?: string;
+}
+
+export const Modal = ({ open, onClose, title, description, children, className = '' }: ModalProps) => {
+    const panelRef = useRef<HTMLDivElement | null>(null);
+    const openerRef = useRef<Element | null>(null);
     // Callers pass an inline arrow, so keep the latest handler in a ref: the
     // open/close effect below must not tear down and re-run on every render.
     const onCloseRef = useRef(onClose);
@@ -23,15 +33,15 @@ export const Modal = ({ open, onClose, title, description, children, className =
 
     // Tab handling stays on the panel; Escape is handled at the window level
     // below so it works even when focus has not landed inside yet.
-    const handleKeyDown = useCallback((e) => {
+    const handleKeyDown = useCallback((e: ReactKeyboardEvent<HTMLDivElement>) => {
         if (e.key !== 'Tab' || !panelRef.current) return;
 
-        const items = Array.from(panelRef.current.querySelectorAll(FOCUSABLE)).filter(
+        const items = Array.from(panelRef.current.querySelectorAll<HTMLElement>(FOCUSABLE)).filter(
             (el) => el.offsetParent !== null
         );
-        if (items.length === 0) return;
         const first = items[0];
         const last = items[items.length - 1];
+        if (!first || !last) return;
         if (e.shiftKey && document.activeElement === first) {
             e.preventDefault();
             last.focus();
@@ -44,7 +54,7 @@ export const Modal = ({ open, onClose, title, description, children, className =
     useEffect(() => {
         if (!open) return;
 
-        const onEscape = (e) => {
+        const onEscape = (e: KeyboardEvent) => {
             if (e.key === 'Escape') onCloseRef.current();
         };
         window.addEventListener('keydown', onEscape);
@@ -54,7 +64,7 @@ export const Modal = ({ open, onClose, title, description, children, className =
         document.body.style.overflow = 'hidden';
 
         const focusTimer = requestAnimationFrame(() => {
-            const target = panelRef.current?.querySelector(FOCUSABLE);
+            const target = panelRef.current?.querySelector<HTMLElement>(FOCUSABLE);
             (target || panelRef.current)?.focus();
         });
 

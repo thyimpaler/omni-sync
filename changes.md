@@ -6,6 +6,36 @@ choices rather than the edits themselves.
 
 ---
 
+## 2026-08-31 — Phase 0 foundations, and a plan
+
+Added [plan.md](plan.md): the route from demo to shippable SaaS, agreed as a real
+product on Supabase plus a Node service, in TypeScript. Then executed its Phase 0.
+
+**Added**
+- `plan.md` — eight phases, verification per phase, sequencing and risks.
+- **Version control.** The project was not a git repository at all. Initialised on
+  `main` with one commit capturing the current state; `dist/` and `node_modules` are
+  correctly ignored, and `.gitattributes` normalises line endings.
+- `.env.example` and `src/lib/env.js` — production builds now throw on a missing
+  variable instead of silently using `placeholder_key`; development warns once and
+  carries on so the demo still runs without a backend.
+- `LICENSE` (proprietary placeholder — the copyright holder still needs setting) and
+  `CONTRIBUTING.md`.
+
+**Changed**
+- `README.md` rewritten from the Vite template: what the product is, how to run it,
+  where things live, and an explicit note that the backend does not exist yet.
+- `src/lib/supabase.js` and `src/hooks/useConversations.js` read through `env` rather
+  than touching `import.meta.env` directly.
+
+**Removed**
+- `socket.io-client`, `date-fns`, `autoprefixer`, `postcss` — four dependencies with
+  zero imports between them. Tailwind 4's Vite plugin needs no PostCSS config.
+
+**Verified**
+Lint and build clean after the dependency removal; the workspace still loads with all
+seven conversations and no console errors after the env refactor.
+
 ## 2026-08-31 — The product screens actually work
 
 Closed the "action buttons are inert" and "two copies of the queue" items from

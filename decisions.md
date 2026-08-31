@@ -8,6 +8,37 @@ Status values: **active**, **superseded**, **revisit**.
 
 ---
 
+## 16. Environment variables fail fast in production
+**2026-08-31 · active**
+
+`src/lib/env.js` throws on a missing variable in production builds, warns once and
+uses a demo fallback in development.
+
+**Why.** The previous `import.meta.env.VITE_SUPABASE_ANON_KEY || 'placeholder_key'`
+meant a misconfigured deploy looked healthy until the first request failed, with an
+error that pointed at Supabase rather than at the missing config. Failing at startup
+names the actual problem.
+
+**Cost.** A production build now needs real values present, including for previews.
+
+---
+
+## 15. The product is headed for real release, on Supabase plus a Node service
+**2026-08-31 · active · user decision**
+
+Chosen over a portfolio-grade front end or an investor demo. TypeScript migration is
+in scope; the backend is Supabase Postgres with a separate Node service for webhooks
+and the SLA engine. Recorded in full in [plan.md](plan.md).
+
+**Why.** The project owner's call. It sets the bar for everything else: multi-tenant
+isolation, an authoritative server-side clock, and Meta platform review.
+
+**Cost.** Months rather than weeks, and the critical path runs through Meta app
+review, which is outside our control. The licence was therefore set to proprietary
+rather than MIT — an open-source licence is hard to walk back.
+
+---
+
 ## 14. The workspace has one state, shared by every screen
 **2026-08-31 · active**
 
@@ -217,3 +248,5 @@ the same text. Unused files invite accidental reuse and hide what is live.
 - **Nothing persists.** A reload resets the workspace to seed data.
 - **No mobile layout for the workspace.** Horizontal scroll is a stopgap.
 - **`og-image.svg` is an SVG.** Most social scrapers want PNG or JPEG.
+- **The LICENSE copyright holder is a placeholder.** Set the real legal entity.
+- **No tests, no CI, no type checking yet.** Phase 1 of [plan.md](plan.md).

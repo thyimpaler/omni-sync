@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <rect width="1200" height="630" fill="#f2f2f3"/>
+  <g stroke="#5980a6" stroke-width="2.5" fill="none">
+    <path d="M80 96h24l22 22h46"/>
+    <path d="M80 140h24l22-22"/>
+  </g>
+  <rect x="122" y="112" width="14" height="14" fill="#5980a6"/>
+  <text x="196" y="132" font-family="Barlow Condensed, Segoe UI, sans-serif" font-size="42" font-weight="600" letter-spacing="7" fill="#1d1f20">OMNISYNC</text>
+  <text x="80" y="290" font-family="Barlow Condensed, Segoe UI, sans-serif" font-size="76" font-weight="600" fill="#1d1f20">Every customer message in one</text>
+  <text x="80" y="370" font-family="Barlow Condensed, Segoe UI, sans-serif" font-size="76" font-weight="600" fill="#1d1f20">queue, with a clock on it.</text>
+  <text x="80" y="440" font-family="Barlow, Segoe UI, sans-serif" font-size="28" fill="#5d5d60">WhatsApp Business and Instagram Direct, with a response target on each one.</text>
+  <rect x="80" y="496" width="150" height="52" fill="#1d2d3d"/>
+  <text x="100" y="522" font-family="monospace" font-size="24" fill="#f5f5f8">04:12</text>
+  <text x="100" y="540" font-family="Barlow Condensed, sans-serif" font-size="13" letter-spacing="2" fill="#b7b7ba">BREACHED</text>
+  <text x="252" y="530" font-family="Barlow, Segoe UI, sans-serif" font-size="22" fill="#7a7a7d">Solid block means the target has been missed.</text>
+</svg>

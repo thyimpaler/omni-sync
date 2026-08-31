@@ -36,8 +36,11 @@ export const Modal = ({ open, onClose, title, description, children, className =
     const handleKeyDown = useCallback((e: ReactKeyboardEvent<HTMLDivElement>) => {
         if (e.key !== 'Tab' || !panelRef.current) return;
 
+        // Filter on what makes an element unfocusable semantically, not on
+        // layout: offsetParent is null for anything inside a fixed-position
+        // container in some engines, and always null without a layout box.
         const items = Array.from(panelRef.current.querySelectorAll<HTMLElement>(FOCUSABLE)).filter(
-            (el) => el.offsetParent !== null
+            (el) => !el.hasAttribute('hidden') && el.getAttribute('aria-hidden') !== 'true'
         );
         const first = items[0];
         const last = items[items.length - 1];

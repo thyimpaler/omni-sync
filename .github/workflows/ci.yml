@@ -20,7 +20,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version-file: .nvmrc
           cache: npm
 
       - run: npm ci
@@ -34,8 +34,8 @@ jobs:
       - name: Types
         run: npm run typecheck
 
-      - name: Unit tests
-        run: npm run test
+      - name: Unit tests and coverage thresholds
+        run: npm run coverage
 
       - name: Build
         run: npm run build
@@ -55,7 +55,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version-file: .nvmrc
           cache: npm
 
       - run: npm ci

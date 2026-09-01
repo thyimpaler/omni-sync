@@ -6,6 +6,29 @@ choices rather than the edits themselves.
 
 ---
 
+## 2026-08-31 — Tests for the two untested pieces that had already hidden bugs
+
+Coverage from the unit suite was 23%. Most of the gap is presentational pages that
+the Playwright suite already walks, but three logic-bearing files had no unit tests at
+all — including `useSeo`, where a silent `seoDescription`/`description` mismatch had
+gone unnoticed until the TypeScript migration.
+
+**Added**
+
+- `src/lib/seo.test.ts` — title composition, creating meta tags versus updating
+  existing ones, the description fallback, and a single canonical link across
+  re-renders. `seo.ts` goes from 0% to 96%.
+- `src/components/Field.test.tsx` — the accessibility contract: label-to-control
+  association, `aria-invalid` and `aria-describedby` wiring, error taking precedence
+  over hint, unique ids per instance, and the polymorphic input/textarea/select
+  branches.
+
+One assertion is worth noting: the required-field marker is verified through the
+accessible name rather than the label's text content, which proves the `aria-hidden`
+asterisk is excluded from what a screen reader announces.
+
+47 unit tests now, all green, alongside the 15 end-to-end specs.
+
 ## 2026-08-31 — Phase 1: TypeScript, tests and CI
 
 The whole of `plan.md` phase 1. Every gate — format, lint, types, unit, e2e, build —

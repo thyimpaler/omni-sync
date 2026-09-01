@@ -1,9 +1,7 @@
 import React from 'react';
 import { Navbar } from '../components/Navbar';
 import { Hero } from '../components/Hero';
-import { Numbers } from '../components/Numbers';
 import { WhatItDoes } from '../components/WhatItDoes';
-import { CustomerQuote } from '../components/CustomerQuote';
 import { Pricing } from '../components/Pricing';
 import { Footer } from '../components/Footer';
 import { useSeo } from '../lib/seo';
@@ -16,9 +14,7 @@ export const LandingPage = () => {
             <Navbar />
             <main id="main">
                 <Hero />
-                <Numbers />
                 <WhatItDoes />
-                <CustomerQuote />
                 <Pricing />
             </main>
             <Footer />

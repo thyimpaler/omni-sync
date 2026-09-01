@@ -2,7 +2,7 @@ import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import { PageShell, ContentSections } from '../components/PageShell';
 import { Link } from 'react-router-dom';
-import { aboutSections, values, stats } from '../content/site';
+import { aboutSections, values } from '../content/site';
 
 export const AboutPage = () => (
     <PageShell
@@ -12,17 +12,6 @@ export const AboutPage = () => (
         seoTitle="About"
         seoDescription="Why we built OmniSync, how the team works, and what we optimise for: the time between a customer asking and a human answering."
     >
-        <div className="mb-14 grid grid-cols-2 gap-4 md:grid-cols-4">
-            {stats.map((stat) => (
-                <div key={stat.label} className="border-l pl-4 rule-soft">
-                    <div className="font-heading text-[30px] font-semibold leading-none text-ink">
-                        {stat.value}
-                    </div>
-                    <div className="mt-2 text-[13px] leading-snug text-neutral-600">{stat.label}</div>
-                </div>
-            ))}
-        </div>
-
         <ContentSections sections={aboutSections} />
 
         <h2 className="mb-6 mt-14 border-b pb-2 text-[24px] rule-soft">What we hold to</h2>

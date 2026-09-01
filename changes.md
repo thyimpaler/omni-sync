@@ -6,6 +6,30 @@ choices rather than the edits themselves.
 
 ---
 
+## 2026-08-31 — Removed the fabricated claims (again)
+
+The remote repository's last commit, from 17 August, was "Remove the fabricated
+testimonials, metrics and speed claim" — it deleted `Stats.jsx` and
+`Testimonials.jsx` outright. Rebuilding from the design mockups put that class of
+content straight back, because the mockups carry invented figures. Stripped again
+at the owner's direction.
+
+**Removed**
+
+- The landing page's numbers strip (`3m 41s` median first response, `2` channels,
+  `4 min` to first message) and the named customer testimonial attributed to
+  "Dami Aluko · Operations, Northfield Supply Co.".
+- The About page's outcome grid (`8 min`, `96%`, `3x`, `< 2 wks payback`).
+- A blog excerpt citing "1.2M conversations", and two quantified outcomes in the
+  founding story that could not be evidenced either.
+
+**Kept**
+The demo workspace data behind `/example` — the Reports figures, the queue and the
+SLA policies. Those are sample data inside a demo, not claims made to a visitor,
+and the design depends on them to tell a coherent story.
+
+The landing page is now hero, what-it-does and pricing.
+
 ## 2026-08-31 — Phase 1 closed, except the one step that needs a remote
 
 **Added**

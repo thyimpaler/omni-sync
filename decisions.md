@@ -8,6 +8,25 @@ Status values: **active**, **superseded**, **revisit**.
 
 ---
 
+## 20. No performance claim the product cannot evidence
+
+**2026-08-31 · active · user decision**
+
+Marketing surfaces carry no metrics, testimonials or outcome figures. Sample data
+inside the `/example` demo is fine; a number presented to a visitor as fact is not.
+
+**Why.** The owner had already made this call once, in August, deleting `Stats.jsx`
+and `Testimonials.jsx`. Rebuilding from the mockups reintroduced the same content
+because the design file carries invented figures — a named customer, a median
+response time, a compliance percentage — for a product with no customers and no
+backend. It also sat badly against the design's own stance elsewhere, which strips
+AI framing and states plainly that nothing sends without an agent.
+
+**Cost.** The landing page loses its proof section, and the design's intended
+rhythm with it. Real numbers can go back the moment there are any.
+
+---
+
 ## 19. Coverage thresholds are a ratchet, not a target
 
 **2026-08-31 · active**

@@ -1,12 +1,5 @@
 export const LAST_UPDATED = 'March 2026';
 
-export const stats = [
-    { value: '8 min', label: 'Median first response after switching' },
-    { value: '96%', label: 'Average SLA compliance at 90 days' },
-    { value: '3x', label: 'More conversations handled per agent' },
-    { value: '< 2 wks', label: 'Typical payback period' },
-];
-
 export const blogPosts = [
     {
         slug: 'sla-is-a-culture-problem',
@@ -39,7 +32,7 @@ export const blogPosts = [
         slug: 'response-time-revenue',
         title: 'We measured what a slow reply actually costs',
         excerpt:
-            'Across 1.2M conversations, the drop-off between a 10-minute and a 60-minute first response is steeper than almost every team assumes.',
+            'What we found when we looked at the gap between a fast first reply and a slow one, and why the drop-off is steeper than most teams assume.',
         date: '2026-01-08',
         readingTime: '7 min read',
         tag: 'Research',
@@ -96,8 +89,8 @@ export const aboutSections = [
     {
         heading: 'Why we built it',
         paragraphs: [
-            'OmniSync started in a shared Gmail inbox. A small fashion retailer was forwarding screenshots of Instagram DMs to a group address, then answering them from WhatsApp Web in a different tab. Roughly one in five questions never got a reply — not because anyone was careless, but because nothing in the setup made "this person has been waiting 40 minutes" visible to anyone.',
-            'We built the first version of the SLA timer for that team in a weekend. Within a month their unanswered rate was under two percent. The whole product is an elaboration of that one idea: put wait time on the screen, sort by it, and make it uncomfortable to ignore.',
+            'OmniSync started in a shared Gmail inbox. A small fashion retailer was forwarding screenshots of Instagram DMs to a group address, then answering them from WhatsApp Web in a different tab. Questions went unanswered — not because anyone was careless, but because nothing in the setup made "this person has been waiting 40 minutes" visible to anyone.',
+            'We built the first version of the SLA timer for that team in a weekend. The whole product is an elaboration of that one idea: put wait time on the screen, sort by it, and make it uncomfortable to ignore.',
         ],
     },
     {

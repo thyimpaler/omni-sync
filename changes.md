@@ -6,6 +6,39 @@ choices rather than the edits themselves.
 
 ---
 
+## 2026-08-31 — Phase 1 closed, except the one step that needs a remote
+
+**Added**
+
+- Coverage is a gate, not a script. Thresholds are a ratchet: the global floor
+  sits just under today's numbers so coverage cannot regress, while `src/lib`
+  (75%+) and `src/state` (65%+) are held higher because that is where behaviour
+  lives. Presentational pages sit below the global figure on purpose — Playwright
+  walks those. CI runs `npm run coverage` in place of `npm run test`.
+- `.nvmrc` pinning Node 22, with both CI jobs reading `node-version-file`, so the
+  local and CI versions cannot drift. They had already drifted: this machine runs
+  Node 24 while CI pinned 22.
+- husky + lint-staged (earlier this session): eslint and prettier run over staged
+  files on every commit.
+- `env.test.ts`: the production throw and development fallback had never been run.
+
+**Fixed**
+
+- `main.tsx` imported `./App.jsx` after the migration. It resolved only because
+  bundler resolution maps `.jsx` onto `.tsx`, so the build stayed green while the
+  path named a file that does not exist. Found by a pre-flight sweep for
+  Linux-only CI failures; the rest of that sweep was clean.
+
+**Verified**
+Format, lint, types, 52 unit tests with coverage thresholds, build, and 15
+end-to-end specs all green. The coverage gate was itself tested: an impossible
+threshold exits 1, the real ones exit 0.
+
+**Still outstanding**
+Phase 1's own exit criterion is "green in CI on a pull request". There is no git
+remote, so `ci.yml` has never executed. No `gh` CLI, no token, no SSH key and no
+browser session are available to create one, so this needs the repository owner.
+
 ## 2026-08-31 — Tests for the two untested pieces that had already hidden bugs
 
 Coverage from the unit suite was 23%. Most of the gap is presentational pages that

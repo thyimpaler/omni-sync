@@ -8,6 +8,26 @@ Status values: **active**, **superseded**, **revisit**.
 
 ---
 
+## 19. Coverage thresholds are a ratchet, not a target
+
+**2026-08-31 · active**
+
+Global floors sit just under current coverage; `src/lib` and `src/state` are held
+far higher. Presentational pages are deliberately allowed to sit below the global
+number.
+
+**Why.** A round aspirational number (80%) would fail on day one and be switched
+off within a week. A floor under today's figure cannot be met by accident and
+cannot regress, and it can be raised whenever a slice of coverage lands. The
+logic layers get a real bar because that is where behaviour lives; pages are
+covered by Playwright, and chasing unit coverage on them would mean testing JSX
+against itself.
+
+**Cost.** The global number looks unimpressive out of context. Raise the floors
+as coverage climbs, or they stop meaning anything.
+
+---
+
 ## 18. Focusability is judged semantically, not by layout
 
 **2026-08-31 · active**
@@ -299,4 +319,5 @@ the same text. Unused files invite accidental reuse and hide what is live.
 - **`og-image.svg` is an SVG.** Most social scrapers want PNG or JPEG.
 - **The LICENSE copyright holder is a placeholder.** Set the real legal entity.
 - **Reports numbers are static.** Every other screen is live.
-- **No coverage threshold yet.** The suite is meaningful but not enforced at a level.
+- **CI has never run.** No git remote exists, so `ci.yml` is unproven. This is
+  Phase 1's own exit criterion and needs the repository owner.

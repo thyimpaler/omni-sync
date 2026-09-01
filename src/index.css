@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /* ---------------------------------------------------------------------------
    Industry design system — ported from the OmniSync Mockups design file.
@@ -8,218 +8,244 @@
 --------------------------------------------------------------------------- */
 
 @theme {
-  --font-heading: "Barlow Condensed", system-ui, sans-serif;
-  --font-body: "Barlow", system-ui, sans-serif;
-  --font-mono: ui-monospace, "Cascadia Mono", Menlo, monospace;
+    --font-heading: 'Barlow Condensed', system-ui, sans-serif;
+    --font-body: 'Barlow', system-ui, sans-serif;
+    --font-mono: ui-monospace, 'Cascadia Mono', Menlo, monospace;
 
-  --color-ground: #f2f2f3;
-  --color-surface: #e9e9ea;
-  --color-ink: #1d1f20;
+    --color-ground: #f2f2f3;
+    --color-surface: #e9e9ea;
+    --color-ink: #1d1f20;
 
-  --color-neutral-100: #f5f5f8;
-  --color-neutral-200: #e7e7ea;
-  --color-neutral-300: #d4d4d7;
-  --color-neutral-400: #b7b7ba;
-  --color-neutral-500: #98989b;
-  --color-neutral-600: #7a7a7d;
-  --color-neutral-700: #5d5d60;
-  --color-neutral-800: #424244;
-  --color-neutral-900: #2b2b2d;
+    --color-neutral-100: #f5f5f8;
+    --color-neutral-200: #e7e7ea;
+    --color-neutral-300: #d4d4d7;
+    --color-neutral-400: #b7b7ba;
+    --color-neutral-500: #98989b;
+    --color-neutral-600: #7a7a7d;
+    --color-neutral-700: #5d5d60;
+    --color-neutral-800: #424244;
+    --color-neutral-900: #2b2b2d;
 
-  --color-accent-100: #eef6ff;
-  --color-accent-200: #d6ebff;
-  --color-accent-300: #b5d9fd;
-  --color-accent-400: #94bce3;
-  --color-accent-500: #749dc4;
-  --color-accent-600: #597ea3;
-  --color-accent-700: #416180;
-  --color-accent-800: #2c455d;
-  --color-accent-900: #1d2d3d;
+    --color-accent-100: #eef6ff;
+    --color-accent-200: #d6ebff;
+    --color-accent-300: #b5d9fd;
+    --color-accent-400: #94bce3;
+    --color-accent-500: #749dc4;
+    --color-accent-600: #597ea3;
+    --color-accent-700: #416180;
+    --color-accent-800: #2c455d;
+    --color-accent-900: #1d2d3d;
 
-  --color-accent2-100: #eef6ff;
-  --color-accent2-200: #d6ebff;
-  --color-accent2-300: #bdd8f2;
-  --color-accent2-400: #9ebbd8;
-  --color-accent2-500: #7e9cb8;
-  --color-accent2-600: #627d98;
-  --color-accent2-700: #486077;
-  --color-accent2-800: #314457;
-  --color-accent2-900: #1f2d3a;
+    --color-accent2-100: #eef6ff;
+    --color-accent2-200: #d6ebff;
+    --color-accent2-300: #bdd8f2;
+    --color-accent2-400: #9ebbd8;
+    --color-accent2-500: #7e9cb8;
+    --color-accent2-600: #627d98;
+    --color-accent2-700: #486077;
+    --color-accent2-800: #314457;
+    --color-accent2-900: #1f2d3a;
 
-  --radius-sm: 2px;
-  --radius-md: 4px;
-  --radius-lg: 7px;
+    --radius-sm: 2px;
+    --radius-md: 4px;
+    --radius-lg: 7px;
 
-  --shadow-sm: 0 1px 2px color-mix(in srgb, #2b2b2d 14%, transparent);
-  --shadow-md: 0 3px 10px color-mix(in srgb, #2b2b2d 16%, transparent);
-  --shadow-lg: 0 12px 32px color-mix(in srgb, #2b2b2d 22%, transparent);
+    --shadow-sm: 0 1px 2px color-mix(in srgb, #2b2b2d 14%, transparent);
+    --shadow-md: 0 3px 10px color-mix(in srgb, #2b2b2d 16%, transparent);
+    --shadow-lg: 0 12px 32px color-mix(in srgb, #2b2b2d 22%, transparent);
 }
 
 @layer theme {
-  :root {
-    --divider: color-mix(in srgb, #1d1f20 16%, transparent);
-    --divider-soft: color-mix(in srgb, #1d1f20 9%, transparent);
-  }
+    :root {
+        --divider: color-mix(in srgb, #1d1f20 16%, transparent);
+        --divider-soft: color-mix(in srgb, #1d1f20 9%, transparent);
+    }
 }
 
 @layer base {
-  html {
-    /* The design is a light one. Without this, Chrome's auto-dark-mode
+    html {
+        /* The design is a light one. Without this, Chrome's auto-dark-mode
        rewrites every colour on the page. */
-    color-scheme: only light;
-    scroll-behavior: smooth;
-    scroll-padding-top: 5rem;
-    -webkit-text-size-adjust: 100%;
-  }
+        color-scheme: only light;
+        scroll-behavior: smooth;
+        scroll-padding-top: 5rem;
+        -webkit-text-size-adjust: 100%;
+    }
 
-  body {
-    @apply bg-ground font-body text-ink antialiased;
-    font-size: 15px;
-    line-height: 1.55;
-  }
+    body {
+        @apply bg-ground font-body text-ink antialiased;
+        font-size: 15px;
+        line-height: 1.55;
+    }
 
-  #root {
-    width: 100%;
-    min-height: 100vh;
-  }
+    #root {
+        width: 100%;
+        min-height: 100vh;
+    }
 
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-heading;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    line-height: 1.12;
-    text-wrap: balance;
-  }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply font-heading;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        line-height: 1.12;
+        text-wrap: balance;
+    }
 
-  section[id] {
-    scroll-margin-top: 5rem;
-  }
+    section[id] {
+        scroll-margin-top: 5rem;
+    }
 
-  :focus-visible {
-    outline: 2px solid var(--color-accent-700);
-    outline-offset: 2px;
-  }
+    :focus-visible {
+        outline: 2px solid var(--color-accent-700);
+        outline-offset: 2px;
+    }
 
-  ::selection {
-    background: var(--color-accent-200);
-    color: var(--color-ink);
-  }
+    ::selection {
+        background: var(--color-accent-200);
+        color: var(--color-ink);
+    }
 
-  input[type="range"] {
-    @apply h-1 w-full cursor-pointer appearance-none bg-neutral-300;
-  }
-  input[type="range"]::-webkit-slider-thumb {
-    @apply h-4 w-4 appearance-none rounded-none bg-accent-700;
-  }
-  input[type="range"]::-moz-range-thumb {
-    @apply h-4 w-4 rounded-none border-0 bg-accent-700;
-  }
+    input[type='range'] {
+        @apply h-1 w-full cursor-pointer appearance-none bg-neutral-300;
+    }
+    input[type='range']::-webkit-slider-thumb {
+        @apply h-4 w-4 appearance-none rounded-none bg-accent-700;
+    }
+    input[type='range']::-moz-range-thumb {
+        @apply h-4 w-4 rounded-none border-0 bg-accent-700;
+    }
 
-  * {
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-neutral-400) transparent;
-  }
-  ::-webkit-scrollbar { width: 10px; height: 10px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb {
-    background: var(--color-neutral-400);
-    border: 3px solid transparent;
-    background-clip: content-box;
-  }
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: var(--color-neutral-400) transparent;
+    }
+    ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: var(--color-neutral-400);
+        border: 3px solid transparent;
+        background-clip: content-box;
+    }
 }
 
 @layer components {
-  /* — rules and surfaces — */
-  .rule {
-    border-color: var(--divider);
-  }
-  .rule-soft {
-    border-color: var(--divider-soft);
-  }
-  .panel {
-    @apply border bg-white;
-    border-color: var(--divider);
-  }
+    /* — rules and surfaces — */
+    .rule {
+        border-color: var(--divider);
+    }
+    .rule-soft {
+        border-color: var(--divider-soft);
+    }
+    .panel {
+        @apply border bg-white;
+        border-color: var(--divider);
+    }
 
-  /* — labels: condensed, tracked-out, uppercase — */
-  .label {
-    @apply font-heading text-[11px] font-semibold uppercase tracking-[0.14em] text-neutral-600;
-  }
-  .label-ink {
-    @apply font-heading text-[11px] font-semibold uppercase tracking-[0.14em] text-ink;
-  }
+    /* — labels: condensed, tracked-out, uppercase — */
+    .label {
+        @apply font-heading text-[11px] font-semibold uppercase tracking-[0.14em] text-neutral-600;
+    }
+    .label-ink {
+        @apply font-heading text-[11px] font-semibold uppercase tracking-[0.14em] text-ink;
+    }
 
-  /* — buttons — */
-  .btn {
-    @apply inline-flex items-center justify-center gap-2 border px-4 py-2 font-heading text-[15px]
+    /* — buttons — */
+    .btn {
+        @apply inline-flex items-center justify-center gap-2 border px-4 py-2 font-heading text-[15px]
            font-semibold uppercase tracking-[0.06em] transition-colors;
-    border-radius: var(--radius-sm);
-  }
-  .btn-primary {
-    @apply border-ink bg-ink text-neutral-100 hover:bg-neutral-800;
-  }
-  .btn-secondary {
-    @apply bg-transparent text-ink hover:bg-neutral-200;
-    border-color: var(--divider);
-  }
-  .btn-ghost {
-    @apply border-transparent bg-transparent text-ink hover:bg-neutral-200;
-  }
+        border-radius: var(--radius-sm);
+    }
+    .btn-primary {
+        @apply border-ink bg-ink text-neutral-100 hover:bg-neutral-800;
+    }
+    .btn-secondary {
+        @apply bg-transparent text-ink hover:bg-neutral-200;
+        border-color: var(--divider);
+    }
+    .btn-ghost {
+        @apply border-transparent bg-transparent text-ink hover:bg-neutral-200;
+    }
 
-  /* — forms — */
-  .input {
-    @apply w-full border bg-white px-3 py-2 text-ink placeholder-neutral-500 transition-colors;
-    border-color: var(--divider);
-    border-radius: var(--radius-sm);
-  }
-  .input:hover {
-    border-color: var(--color-neutral-500);
-  }
-  .input:focus-visible {
-    border-color: var(--color-accent-700);
-    outline-offset: 0;
-  }
+    /* — forms — */
+    .input {
+        @apply w-full border bg-white px-3 py-2 text-ink placeholder-neutral-500 transition-colors;
+        border-color: var(--divider);
+        border-radius: var(--radius-sm);
+    }
+    .input:hover {
+        border-color: var(--color-neutral-500);
+    }
+    .input:focus-visible {
+        border-color: var(--color-accent-700);
+        outline-offset: 0;
+    }
 
-  /* — tags — */
-  .tag {
-    @apply inline-flex items-center gap-1 px-2 py-0.5 font-heading text-[11px] font-semibold
+    /* — tags — */
+    .tag {
+        @apply inline-flex items-center gap-1 px-2 py-0.5 font-heading text-[11px] font-semibold
            uppercase tracking-[0.1em];
-    border-radius: var(--radius-sm);
-  }
-  .tag-accent { @apply bg-accent-200 text-accent-900; }
-  .tag-neutral { @apply bg-neutral-200 text-neutral-800; }
-  .tag-outline {
-    @apply border bg-transparent text-neutral-700;
-    border-color: var(--divider);
-  }
+        border-radius: var(--radius-sm);
+    }
+    .tag-accent {
+        @apply bg-accent-200 text-accent-900;
+    }
+    .tag-neutral {
+        @apply bg-neutral-200 text-neutral-800;
+    }
+    .tag-outline {
+        @apply border bg-transparent text-neutral-700;
+        border-color: var(--divider);
+    }
 
-  /* — SLA states: value, not colour —
+    /* — SLA states: value, not colour —
      breached: solid block · warning: pale tint · on track: plain type */
-  .sla {
-    @apply inline-flex flex-col items-end px-2 py-1 text-right font-mono text-[13px] leading-tight
+    .sla {
+        @apply inline-flex flex-col items-end px-2 py-1 text-right font-mono text-[13px] leading-tight
            tabular-nums;
-    border-radius: var(--radius-sm);
-  }
-  .sla-breached { @apply bg-accent-900 text-neutral-100; }
-  .sla-warning { @apply bg-accent-200 text-accent-900; }
-  .sla-ontime { @apply text-neutral-700; }
-  .sla-closed { @apply text-neutral-500; }
-  .sla-state {
-    @apply font-heading text-[9px] font-semibold uppercase tracking-[0.12em];
-  }
+        border-radius: var(--radius-sm);
+    }
+    .sla-breached {
+        @apply bg-accent-900 text-neutral-100;
+    }
+    .sla-warning {
+        @apply bg-accent-200 text-accent-900;
+    }
+    .sla-ontime {
+        @apply text-neutral-700;
+    }
+    .sla-closed {
+        @apply text-neutral-500;
+    }
+    .sla-state {
+        @apply font-heading text-[9px] font-semibold uppercase tracking-[0.12em];
+    }
 
-  .skip-link {
-    @apply sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200]
+    .skip-link {
+        @apply sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200]
            focus:bg-ink focus:px-5 focus:py-3 focus:font-semibold focus:text-neutral-100;
-  }
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
-  }
+    html {
+        scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
 }

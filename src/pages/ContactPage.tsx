@@ -61,7 +61,10 @@ export const ContactPage = () => (
 
             <div className="panel h-fit p-8">
                 <h2 className="mb-2 text-[24px]">Send us a note</h2>
-                <p className="mb-6 text-neutral-700">Tell us what you are trying to solve and we will reply with something useful, not a brochure.</p>
+                <p className="mb-6 text-neutral-700">
+                    Tell us what you are trying to solve and we will reply with something useful, not a
+                    brochure.
+                </p>
                 <ContactForm
                     requireMessage
                     messageLabel="What can we help with?"

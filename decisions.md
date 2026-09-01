@@ -8,7 +8,41 @@ Status values: **active**, **superseded**, **revisit**.
 
 ---
 
+## 18. Focusability is judged semantically, not by layout
+
+**2026-08-31 · active**
+
+`Modal`'s focus trap filters candidates on `hidden` and `aria-hidden` rather than
+`offsetParent !== null`.
+
+**Why.** `offsetParent` is a layout property: null for any element without a layout
+box, and null inside a fixed-position container in some engines. When the filter
+emptied the list the trap silently did nothing and Tab escaped the dialog. The
+semantic check behaves identically in jsdom and in browsers, which is also what
+made it testable.
+
+**Cost.** An element hidden purely by CSS would now be counted. Browsers skip such
+elements natively, so the practical risk is small.
+
+---
+
+## 17. Tests are a gate, not a suggestion
+
+**2026-08-31 · active**
+
+`npm run build` runs `tsc --noEmit` first, and CI runs format, lint, types, unit,
+build and e2e on every pull request.
+
+**Why.** The suite has already paid for itself: within one session it found a dead
+focus trap, three unclickable buttons at 1280px, and a meta description that had
+never been set. None of those were visible by looking at the screen.
+
+**Cost.** CI minutes, and a slower local build. Both are cheaper than the defects.
+
+---
+
 ## 16. Environment variables fail fast in production
+
 **2026-08-31 · active**
 
 `src/lib/env.js` throws on a missing variable in production builds, warns once and
@@ -24,6 +58,7 @@ names the actual problem.
 ---
 
 ## 15. The product is headed for real release, on Supabase plus a Node service
+
 **2026-08-31 · active · user decision**
 
 Chosen over a portfolio-grade front end or an investor demo. TypeScript migration is
@@ -40,6 +75,7 @@ rather than MIT — an open-source licence is hard to walk back.
 ---
 
 ## 14. The workspace has one state, shared by every screen
+
 **2026-08-31 · active**
 
 `WorkspaceProvider` holds the conversations, policies and escalation switches.
@@ -57,6 +93,7 @@ means swapping the provider's internals, not the screens.
 ---
 
 ## 13. Demo actions do the real thing locally, and say when they cannot
+
 **2026-08-31 · active**
 
 Assign, Take next, Bulk assign, Filter, Snooze, Resolve, Reopen, reply, policy
@@ -74,6 +111,7 @@ demo data rather than being computed from the live conversations.
 ---
 
 ## 12. Product screens follow the design's demo data verbatim
+
 **2026-08-31 · active**
 
 The numbers on Queue, Reports and Settings (04:12 longest wait, 94.2% compliance,
@@ -90,6 +128,7 @@ the screens.
 ---
 
 ## 11. Inbox uses the three-pane layout (1a), not two-pane (1b)
+
 **2026-08-31 · active · user decision**
 
 The design shipped both and asked which to keep.
@@ -103,6 +142,7 @@ instead of reflowing; there is no mobile layout in the mockups to build against.
 ---
 
 ## 10. Landing matches the mockup exactly; ROI calculator, FAQ and testimonial grid deleted
+
 **2026-08-31 · active · user decision**
 
 **Why.** Chosen by the project owner over re-adding them. The mockup's landing is
@@ -114,6 +154,7 @@ deleted rather than left unused; restoring them means rebuilding in the new syst
 ---
 
 ## 9. AI framing removed from product copy, not just the visuals
+
 **2026-08-31 · active**
 
 "AI-prioritised" became "Rule fired · VIP + delivery keyword", logged in the thread
@@ -129,6 +170,7 @@ to predict. Saying what it does is both more honest and more useful.
 ---
 
 ## 8. Urgency reads through value, never colour
+
 **2026-08-31 · active**
 
 Breached renders as a solid dark block, warning as a pale tint, on-track as plain
@@ -143,6 +185,7 @@ the meaning on its own.
 ---
 
 ## 7. Light-only theme, declared as such
+
 **2026-08-31 · active**
 
 `color-scheme: only light` in CSS and in the meta tag. No dark variants.
@@ -159,6 +202,7 @@ running Dark Reader will see an inverted site regardless.
 ---
 
 ## 6. Design assets are extracted to the repo, not fetched on demand
+
 **2026-08-31 · active**
 
 `design/industry-tokens.md` holds the tokens, artboard inventory and copy.
@@ -173,6 +217,7 @@ file so it can be refreshed.
 ---
 
 ## 5. One `LegalPage` component serves privacy, terms and cookies
+
 **2026-08-31 · active**
 
 Same for `PageShell` (all content pages), `AuthShell` (three auth screens),
@@ -186,6 +231,7 @@ One implementation means an accessibility or styling fix lands everywhere at onc
 ---
 
 ## 4. Supabase is lazy-loaded; react-query lives in the dashboard chunk
+
 **2026-08-31 · active**
 
 `src/lib/supabase.js` exports `getSupabase()`, which imports the client on first use.
@@ -199,6 +245,7 @@ both. This took the entry bundle from 199 kB to 135 kB gzip.
 ---
 
 ## 3. `AuthProvider` never blocks the first paint
+
 **2026-08-31 · active**
 
 It renders `{children}` unconditionally and exposes `loading` through context.
@@ -212,6 +259,7 @@ waited on a Supabase session call — a slow or unreachable backend meant a blan
 ---
 
 ## 2. `eslint-plugin-react` added for `jsx-uses-vars` only
+
 **2026-08-31 · active**
 
 **Why.** Core ESLint cannot see identifiers used only in JSX, so `no-unused-vars`
@@ -224,6 +272,7 @@ deliberately not enabled, only the one rule.
 ---
 
 ## 1. Placeholder and dead code is deleted, not left in place
+
 **2026-08-31 · active**
 
 `DocumentPage.jsx` (one product dump served on seven routes), `App.css`, unused SVG
@@ -249,4 +298,5 @@ the same text. Unused files invite accidental reuse and hide what is live.
 - **No mobile layout for the workspace.** Horizontal scroll is a stopgap.
 - **`og-image.svg` is an SVG.** Most social scrapers want PNG or JPEG.
 - **The LICENSE copyright holder is a placeholder.** Set the real legal entity.
-- **No tests, no CI, no type checking yet.** Phase 1 of [plan.md](plan.md).
+- **Reports numbers are static.** Every other screen is live.
+- **No coverage threshold yet.** The suite is meaningful but not enforced at a level.

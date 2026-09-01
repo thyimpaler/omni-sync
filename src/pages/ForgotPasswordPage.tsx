@@ -36,10 +36,13 @@ export const ForgotPasswordPage = () => {
                     </div>
                     <h2 className="mb-2 text-[22px]">Check your email</h2>
                     <p className="mb-6 text-neutral-700">
-                        If an account exists for <span className="text-ink">{email}</span>, a reset link is on its way.
-                        It expires in 30 minutes.
+                        If an account exists for <span className="text-ink">{email}</span>, a reset link is on
+                        its way. It expires in 30 minutes.
                     </p>
-                    <Link to="/login" className="inline-flex items-center gap-2 font-medium text-accent-700 hover:underline">
+                    <Link
+                        to="/login"
+                        className="inline-flex items-center gap-2 font-medium text-accent-700 hover:underline"
+                    >
                         <ArrowLeft className="h-4 w-4" aria-hidden="true" /> Back to log in
                     </Link>
                 </div>
@@ -63,7 +66,10 @@ export const ForgotPasswordPage = () => {
                         Send reset link
                     </button>
                     <p className="text-center">
-                        <Link to="/login" className="inline-flex items-center gap-2 text-[14px] text-neutral-600 transition-colors hover:text-ink">
+                        <Link
+                            to="/login"
+                            className="inline-flex items-center gap-2 text-[14px] text-neutral-600 transition-colors hover:text-ink"
+                        >
                             <ArrowLeft className="h-4 w-4" aria-hidden="true" /> Back to log in
                         </Link>
                     </p>

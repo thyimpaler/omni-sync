@@ -12,6 +12,7 @@ const SECTIONS = [
 
 export const Navbar = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const closeMenu = () => setMobileMenuOpen(false);
 
     useEffect(() => {
         if (!mobileMenuOpen) return;
@@ -32,7 +33,10 @@ export const Navbar = () => {
             </a>
 
             <header className="sticky top-0 z-50 border-b bg-ground/95 backdrop-blur-sm rule">
-                <nav aria-label="Main" className="mx-auto flex max-w-[1240px] items-center justify-between px-6 py-4">
+                <nav
+                    aria-label="Main"
+                    className="mx-auto flex max-w-[1240px] items-center justify-between px-6 py-4"
+                >
                     <Link to="/" aria-label="OmniSync home">
                         <Logo />
                     </Link>
@@ -76,21 +80,31 @@ export const Navbar = () => {
 
                 {mobileMenuOpen && (
                     <div id="mobile-menu" className="border-t bg-ground md:hidden rule">
-                        <ul className="flex flex-col gap-4 px-6 py-6" onClick={() => setMobileMenuOpen(false)}>
+                        {/* Each link closes the menu itself. A handler on the <ul>
+                            would only fire for pointer users, never for keyboard. */}
+                        <ul className="flex flex-col gap-4 px-6 py-6">
                             {SECTIONS.map((item) => (
                                 <li key={item.to}>
-                                    <Link to={item.to} className="font-heading text-lg uppercase tracking-[0.08em] text-ink">
+                                    <Link
+                                        to={item.to}
+                                        onClick={closeMenu}
+                                        className="font-heading text-lg uppercase tracking-[0.08em] text-ink"
+                                    >
                                         {item.label}
                                     </Link>
                                 </li>
                             ))}
                             <li>
-                                <Link to="/login" className="font-heading text-lg uppercase tracking-[0.08em] text-ink">
+                                <Link
+                                    to="/login"
+                                    onClick={closeMenu}
+                                    className="font-heading text-lg uppercase tracking-[0.08em] text-ink"
+                                >
                                     Sign in
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/signup" className="btn btn-primary w-full">
+                                <Link to="/signup" onClick={closeMenu} className="btn btn-primary w-full">
                                     Start free
                                 </Link>
                             </li>

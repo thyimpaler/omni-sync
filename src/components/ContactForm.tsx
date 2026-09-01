@@ -44,7 +44,7 @@ export const ContactForm = ({
     messagePlaceholder = 'Team size, channels you support, anything you want covered on the call…',
     submitLabel = 'Send message',
     successTitle = 'Message sent',
-    successMessage = "Our team will get back to you within one business day.",
+    successMessage = 'Our team will get back to you within one business day.',
     requireMessage = false,
     onDone,
 }: ContactFormProps) => {
@@ -52,11 +52,10 @@ export const ContactForm = ({
     const [errors, setErrors] = useState<ContactErrors>({});
     const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
 
-    const update =
-        (key: keyof ContactValues) => (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-            setValues((v) => ({ ...v, [key]: e.target.value }));
-            setErrors((prev) => (prev[key] ? { ...prev, [key]: undefined } : prev));
-        };
+    const update = (key: keyof ContactValues) => (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setValues((v) => ({ ...v, [key]: e.target.value }));
+        setErrors((prev) => (prev[key] ? { ...prev, [key]: undefined } : prev));
+    };
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -150,7 +149,10 @@ export const ContactForm = ({
 
             <p className="text-center text-[12px] text-neutral-600">
                 Prefer email?{' '}
-                <a href="mailto:sales@omnisync.app" className="text-accent-700 underline-offset-2 hover:underline">
+                <a
+                    href="mailto:sales@omnisync.app"
+                    className="text-accent-700 underline-offset-2 hover:underline"
+                >
                     sales@omnisync.app
                 </a>
             </p>

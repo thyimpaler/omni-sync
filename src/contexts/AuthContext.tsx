@@ -15,12 +15,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
         // Restore an existing session, then follow any auth change from there.
         getSupabase().then(async (supabase) => {
-            const { data: { session } } = await supabase.auth.getSession();
+            const {
+                data: { session },
+            } = await supabase.auth.getSession();
             if (cancelled) return;
             setUser(session?.user ?? null);
             setLoading(false);
 
-            const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, next) => {
+            const {
+                data: { subscription },
+            } = supabase.auth.onAuthStateChange((_event, next) => {
                 setUser(next?.user ?? null);
             });
             unsubscribe = () => subscription.unsubscribe();

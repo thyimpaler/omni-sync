@@ -22,7 +22,10 @@ export const WorkspaceProvider = ({ children }: { children: ReactNode }) => {
         setConversations((prev) => prev.map((c) => (c.id === id ? { ...c, ...patch } : c)));
     }, []);
 
-    const assign = useCallback((id: number, agent: string | null) => update(id, { assignee: agent }), [update]);
+    const assign = useCallback(
+        (id: number, agent: string | null) => update(id, { assignee: agent }),
+        [update]
+    );
 
     const snooze = useCallback(
         (id: number) => update(id, { status: 'snoozed', state: 'closed', waiting: '—' }),
@@ -82,7 +85,9 @@ export const WorkspaceProvider = ({ children }: { children: ReactNode }) => {
     const savePolicies = useCallback((next: Policy[]) => setPolicies(next), []);
 
     const toggleMissedAction = useCallback((title: string) => {
-        setMissedActions((prev: MissedAction[]) => prev.map((a) => (a.title === title ? { ...a, on: !a.on } : a)));
+        setMissedActions((prev: MissedAction[]) =>
+            prev.map((a) => (a.title === title ? { ...a, on: !a.on } : a))
+        );
     }, []);
 
     const value = useMemo(

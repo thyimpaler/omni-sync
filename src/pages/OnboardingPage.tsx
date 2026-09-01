@@ -21,7 +21,13 @@ export const OnboardingPage = () => {
         setChannels((prev) =>
             prev.map((c) =>
                 c.name === name
-                    ? { ...c, status: 'Connected', action: 'Manage', primary: false, note: `${c.name} · connected just now` }
+                    ? {
+                          ...c,
+                          status: 'Connected',
+                          action: 'Manage',
+                          primary: false,
+                          note: `${c.name} · connected just now`,
+                      }
                     : c
             )
         );
@@ -49,7 +55,10 @@ export const OnboardingPage = () => {
                 </div>
             </header>
 
-            <main id="main" className="mx-auto grid max-w-[1000px] gap-10 px-6 py-12 md:grid-cols-[220px_1fr]">
+            <main
+                id="main"
+                className="mx-auto grid max-w-[1000px] gap-10 px-6 py-12 md:grid-cols-[220px_1fr]"
+            >
                 <nav aria-label="Setup steps">
                     <p className="label mb-4">Four steps</p>
                     <ol className="space-y-4">
@@ -57,7 +66,11 @@ export const OnboardingPage = () => {
                             <li key={step.title} className="flex gap-3">
                                 <span
                                     className={`flex h-6 w-6 shrink-0 items-center justify-center border font-mono text-[12px] rule ${
-                                        step.done ? 'bg-ink text-neutral-100' : step.current ? 'bg-accent-200 text-accent-900' : 'text-neutral-600'
+                                        step.done
+                                            ? 'bg-ink text-neutral-100'
+                                            : step.current
+                                              ? 'bg-accent-200 text-accent-900'
+                                              : 'text-neutral-600'
                                     }`}
                                     aria-hidden="true"
                                 >
@@ -71,7 +84,11 @@ export const OnboardingPage = () => {
                                     >
                                         {step.title}
                                     </span>
-                                    {step.note && <span className="block text-[12px] text-neutral-600">{step.note}</span>}
+                                    {step.note && (
+                                        <span className="block text-[12px] text-neutral-600">
+                                            {step.note}
+                                        </span>
+                                    )}
                                 </span>
                             </li>
                         ))}
@@ -81,7 +98,8 @@ export const OnboardingPage = () => {
                 <div>
                     <h1 className="text-[32px]">Connect your channels</h1>
                     <p className="mt-3 max-w-[520px] text-[15px] leading-relaxed text-neutral-700">
-                        Messages start arriving the moment a channel is connected. Nothing is sent on your behalf.
+                        Messages start arriving the moment a channel is connected. Nothing is sent on your
+                        behalf.
                     </p>
 
                     <ul className="mt-8">
@@ -92,10 +110,14 @@ export const OnboardingPage = () => {
                             >
                                 <div className={channel.muted ? 'opacity-60' : undefined}>
                                     <h2 className="text-[19px]">{channel.name}</h2>
-                                    <p className="mt-1 max-w-[420px] text-[13px] text-neutral-600">{channel.note}</p>
+                                    <p className="mt-1 max-w-[420px] text-[13px] text-neutral-600">
+                                        {channel.note}
+                                    </p>
                                 </div>
                                 <div className="flex items-center gap-3">
-                                    {channel.status && <span className="tag tag-accent">{channel.status}</span>}
+                                    {channel.status && (
+                                        <span className="tag tag-accent">{channel.status}</span>
+                                    )}
                                     <button
                                         type="button"
                                         onClick={() =>
@@ -117,8 +139,12 @@ export const OnboardingPage = () => {
                     </p>
 
                     <div className="mt-10 flex gap-3">
-                        <Link to="/signup" className="btn btn-secondary px-6">Back</Link>
-                        <Link to="/example" className="btn btn-primary px-6">Continue</Link>
+                        <Link to="/signup" className="btn btn-secondary px-6">
+                            Back
+                        </Link>
+                        <Link to="/example" className="btn btn-primary px-6">
+                            Continue
+                        </Link>
                     </div>
                 </div>
             </main>

@@ -52,8 +52,8 @@ export const Hero = () => (
                     Every customer message in one queue, with a clock on it.
                 </h1>
                 <p className="mt-6 max-w-[470px] text-[17px] leading-relaxed text-neutral-700">
-                    OmniSync pulls your WhatsApp Business and Instagram Direct messages into a single shared inbox,
-                    puts a response target on each one, and tells you who is about to miss theirs.
+                    OmniSync pulls your WhatsApp Business and Instagram Direct messages into a single shared
+                    inbox, puts a response target on each one, and tells you who is about to miss theirs.
                 </p>
                 <div className="mt-8 flex flex-wrap gap-3">
                     <Link to="/signup" className="btn btn-primary px-6 py-3">

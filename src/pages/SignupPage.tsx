@@ -16,16 +16,21 @@ const PLANS = [
 ];
 
 export const SignupPage = () => {
-    const [values, setValues] = useState({ fullName: '', company: '', email: '', password: '', plan: 'team' });
+    const [values, setValues] = useState({
+        fullName: '',
+        company: '',
+        email: '',
+        password: '',
+        plan: 'team',
+    });
     const [errors, setErrors] = useState<Partial<Record<SignupField, string>>>({});
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
-    const update =
-        (key: SignupField) => (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-            setValues((v) => ({ ...v, [key]: e.target.value }));
-            setErrors((prev) => (prev[key] ? { ...prev, [key]: undefined } : prev));
-        };
+    const update = (key: SignupField) => (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        setValues((v) => ({ ...v, [key]: e.target.value }));
+        setErrors((prev) => (prev[key] ? { ...prev, [key]: undefined } : prev));
+    };
 
     const handleSignup = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -50,7 +55,10 @@ export const SignupPage = () => {
             footer={
                 <>
                     Already have an account?{' '}
-                    <Link to="/login" className="font-medium text-accent-700 underline-offset-2 hover:underline">
+                    <Link
+                        to="/login"
+                        className="font-medium text-accent-700 underline-offset-2 hover:underline"
+                    >
                         Log in
                     </Link>
                 </>
@@ -110,7 +118,11 @@ export const SignupPage = () => {
                         aria-label={showPassword ? 'Hide password' : 'Show password'}
                         className="absolute right-2 top-[2.9rem] -translate-y-1/2 p-1 text-neutral-500 transition-colors hover:text-ink"
                     >
-                        {showPassword ? <EyeOff className="h-5 w-5" aria-hidden="true" /> : <Eye className="h-5 w-5" aria-hidden="true" />}
+                        {showPassword ? (
+                            <EyeOff className="h-5 w-5" aria-hidden="true" />
+                        ) : (
+                            <Eye className="h-5 w-5" aria-hidden="true" />
+                        )}
                     </button>
                 </div>
 

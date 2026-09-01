@@ -22,7 +22,7 @@ fine — mark the old entry superseded and add a new one explaining why.
   `.btn` / `.input` / `.tag` / `.sla` utilities in `src/index.css`. Do not introduce a
   second way to do something that already has one.
 - Copy and demo data live in `src/content/`, never inline in components.
-- Comments explain *why*, not *what*.
+- Comments explain _why_, not _what_.
 
 ## Design
 

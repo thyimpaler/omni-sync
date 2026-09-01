@@ -29,16 +29,16 @@ const queryClient = new QueryClient({
 export const DashboardPage = () => (
     <QueryClientProvider client={queryClient}>
         <WorkspaceProvider>
-        <div className="flex h-screen w-full overflow-x-auto bg-ground text-ink">
-            <Sidebar />
-            <Routes>
-                <Route index element={<InboxView />} />
-                <Route path="queue" element={<QueuePage />} />
-                <Route path="analytics" element={<AnalyticsPage />} />
-                <Route path="settings" element={<SettingsPage />} />
-                <Route path="team" element={<TeamPage />} />
-            </Routes>
-        </div>
+            <div className="flex h-screen w-full overflow-x-auto bg-ground text-ink">
+                <Sidebar />
+                <Routes>
+                    <Route index element={<InboxView />} />
+                    <Route path="queue" element={<QueuePage />} />
+                    <Route path="analytics" element={<AnalyticsPage />} />
+                    <Route path="settings" element={<SettingsPage />} />
+                    <Route path="team" element={<TeamPage />} />
+                </Routes>
+            </div>
         </WorkspaceProvider>
     </QueryClientProvider>
 );

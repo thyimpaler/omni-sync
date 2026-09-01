@@ -57,14 +57,18 @@ export const AnalyticsPage = () => {
                                     onClick={() => setRange(r)}
                                     aria-pressed={range === r}
                                     className={`px-3 py-1.5 font-heading text-[12px] font-semibold uppercase tracking-[0.08em] transition-colors ${
-                                        range === r ? 'bg-ink text-neutral-100' : 'text-neutral-700 hover:bg-neutral-200'
+                                        range === r
+                                            ? 'bg-ink text-neutral-100'
+                                            : 'text-neutral-700 hover:bg-neutral-200'
                                     }`}
                                 >
                                     {r}
                                 </button>
                             ))}
                         </div>
-                        <button type="button" onClick={exportCsv} className="btn btn-secondary py-1.5">Export CSV</button>
+                        <button type="button" onClick={exportCsv} className="btn btn-secondary py-1.5">
+                            Export CSV
+                        </button>
                     </div>
                 </header>
 
@@ -83,10 +87,13 @@ export const AnalyticsPage = () => {
                 </dl>
 
                 <section className="mt-10" aria-labelledby="hours-heading">
-                    <h2 id="hours-heading" className="text-[24px]">Where does the time go?</h2>
+                    <h2 id="hours-heading" className="text-[24px]">
+                        Where does the time go?
+                    </h2>
                     <p className="label mt-1">median first response, by hour</p>
                     <p className="mt-3 max-w-[560px] text-[14px] leading-relaxed text-neutral-700">
-                        Every breach this month landed between 12:00 and 14:00, when two of five agents are at lunch.
+                        Every breach this month landed between 12:00 and 14:00, when two of five agents are at
+                        lunch.
                     </p>
 
                     <div className="mt-6 flex h-[180px] items-end gap-2 border-b pb-0 rule-soft">
@@ -103,7 +110,10 @@ export const AnalyticsPage = () => {
                     </div>
                     <div className="flex gap-2">
                         {hourly.map((bar) => (
-                            <span key={bar.hour} className="flex-1 pt-1.5 text-center font-mono text-[11px] text-neutral-600">
+                            <span
+                                key={bar.hour}
+                                className="flex-1 pt-1.5 text-center font-mono text-[11px] text-neutral-600"
+                            >
                                 {bar.hour}
                             </span>
                         ))}
@@ -111,7 +121,10 @@ export const AnalyticsPage = () => {
 
                     <ul className="mt-4 flex flex-wrap gap-5">
                         {LEGEND.map((item) => (
-                            <li key={item.state} className="flex items-center gap-2 text-[12px] text-neutral-600">
+                            <li
+                                key={item.state}
+                                className="flex items-center gap-2 text-[12px] text-neutral-600"
+                            >
                                 <span className={`h-3 w-3 ${BAR[item.state]}`} aria-hidden="true" />
                                 {item.label}
                             </li>
@@ -121,19 +134,30 @@ export const AnalyticsPage = () => {
 
                 <div className="mt-12 grid gap-10 md:grid-cols-3">
                     <section aria-labelledby="channel-heading">
-                        <h2 id="channel-heading" className="label mb-3">By channel</h2>
+                        <h2 id="channel-heading" className="label mb-3">
+                            By channel
+                        </h2>
                         <table className="w-full text-left">
                             <thead>
                                 <tr className="border-b rule-soft">
-                                    <th scope="col" className="sr-only">Channel</th>
-                                    <th scope="col" className="label pb-1 text-right">Volume</th>
-                                    <th scope="col" className="label pb-1 text-right">Median</th>
+                                    <th scope="col" className="sr-only">
+                                        Channel
+                                    </th>
+                                    <th scope="col" className="label pb-1 text-right">
+                                        Volume
+                                    </th>
+                                    <th scope="col" className="label pb-1 text-right">
+                                        Median
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {byChannel.map((row) => (
                                     <tr key={row.channel} className="border-b rule-soft">
-                                        <th scope="row" className="py-2 text-left text-[14px] font-normal text-ink">
+                                        <th
+                                            scope="row"
+                                            className="py-2 text-left text-[14px] font-normal text-ink"
+                                        >
                                             {row.channel}
                                         </th>
                                         <td className="py-2 text-right font-mono text-[13px] tabular-nums text-neutral-700">
@@ -149,7 +173,9 @@ export const AnalyticsPage = () => {
                     </section>
 
                     <section aria-labelledby="agents-heading">
-                        <h2 id="agents-heading" className="label mb-3">Agents</h2>
+                        <h2 id="agents-heading" className="label mb-3">
+                            Agents
+                        </h2>
                         <ul className="space-y-2">
                             {agentPerformance.map((agent) => (
                                 <li key={agent.name} className="border-b pb-2 rule-soft">
@@ -163,12 +189,19 @@ export const AnalyticsPage = () => {
                     </section>
 
                     <section aria-labelledby="subjects-heading">
-                        <h2 id="subjects-heading" className="label mb-3">Top subjects</h2>
+                        <h2 id="subjects-heading" className="label mb-3">
+                            Top subjects
+                        </h2>
                         <ul className="space-y-2">
                             {topSubjects.map((item) => (
-                                <li key={item.subject} className="flex justify-between gap-3 border-b pb-2 rule-soft">
+                                <li
+                                    key={item.subject}
+                                    className="flex justify-between gap-3 border-b pb-2 rule-soft"
+                                >
                                     <span className="text-[14px] text-ink">{item.subject}</span>
-                                    <span className="font-mono text-[13px] tabular-nums text-neutral-600">{item.count}</span>
+                                    <span className="font-mono text-[13px] tabular-nums text-neutral-600">
+                                        {item.count}
+                                    </span>
                                 </li>
                             ))}
                         </ul>

@@ -12,7 +12,9 @@ test.describe('marketing site', () => {
         // The inbox preview is the proof, so it has to be on the page.
         await expect(page.getByText('Amanda Smith')).toBeVisible();
         await expect(page.getByText('04:12')).toBeVisible();
-        await expect(page.getByText('The actual inbox. Solid block means the target has already been missed.')).toBeVisible();
+        await expect(
+            page.getByText('The actual inbox. Solid block means the target has already been missed.')
+        ).toBeVisible();
     });
 
     test('states plainly that nothing sends without an agent', async ({ page }) => {

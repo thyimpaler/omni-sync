@@ -10,7 +10,7 @@ const escape = (value: string | number | null | undefined): string => {
     return /[",\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
 };
 
-export const toCsv = <Row,>(columns: CsvColumn<Row>[], rows: Row[]): string =>
+export const toCsv = <Row>(columns: CsvColumn<Row>[], rows: Row[]): string =>
     [columns.map((c) => escape(c.header)).join(',')]
         .concat(rows.map((row) => columns.map((c) => escape(c.value(row))).join(',')))
         .join('\r\n');

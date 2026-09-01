@@ -6,12 +6,57 @@ choices rather than the edits themselves.
 
 ---
 
+## 2026-08-31 — Phase 1: TypeScript, tests and CI
+
+The whole of `plan.md` phase 1. Every gate — format, lint, types, unit, e2e, build —
+now runs on a pull request.
+
+**TypeScript**
+
+- All 50 files under `src/` migrated; `allowJs` is off, so the compiler checks the
+  whole tree. `src/types/index.ts` holds the domain models the Supabase schema will
+  have to match. ESLint reads `.ts`/`.tsx` through typescript-eslint.
+- Real defects found by strict mode: `WorkspaceProvider` indexed `seedConversations[0]`
+  unguarded; `AuthContext` took implicitly-any credentials; `main.tsx` assumed `#root`
+  exists; `OnboardingPage` passed `seoDescription` to `useSeo`, which takes
+  `description` — that page's meta description had never been set.
+
+**Tests** — 30 unit and component tests (Vitest, Testing Library) and 15 end-to-end
+specs (Playwright), covering `waitingSeconds` ordering, `toCsv` escaping, queue
+filtering and search, the Modal dialog contract, the settings dirty/save/discard cycle,
+signup → onboarding → connect → inbox, Take next, replying, resolving, the reports
+range toggle, and a real CSV download whose contents are asserted.
+
+**Bugs the tests found**
+
+- `Modal`'s focus trap filtered candidates on `offsetParent`, a layout property that is
+  null without a layout box — the trap could silently do nothing. It now filters on
+  `hidden` and `aria-hidden`.
+- `InboxView` used `w-full` beside the fixed-width sidebar, pushing the customer record
+  off the edge; now `flex-1`.
+- The thread header could not fit its actions on one line at 1280px, so **Assign,
+  Snooze and Resolve were unclickable** — the customer record sat over them. The header
+  wraps now.
+- `jsx-a11y` caught the mobile menu closing via a click handler on its `<ul>`, which
+  keyboard users never trigger. Each link closes it now.
+
+**Tooling** — Prettier (110 columns, 4-space, single quotes, matching the existing
+style), `eslint-plugin-jsx-a11y`, `.github/workflows/ci.yml` (verify + e2e jobs) and
+Dependabot. New scripts: `typecheck`, `test`, `test:watch`, `coverage`, `e2e`, `e2e:ui`,
+`format`, `format:check`.
+
+**Environment notes** — Vitest runs on the threads pool because the default forks pool
+times out here; test setup sets `MotionGlobalConfig.skipAnimations` because
+AnimatePresence exits never complete under jsdom. Playwright uses port 5174 so a dev
+server on 5173 is untouched.
+
 ## 2026-08-31 — Phase 0 foundations, and a plan
 
 Added [plan.md](plan.md): the route from demo to shippable SaaS, agreed as a real
 product on Supabase plus a Node service, in TypeScript. Then executed its Phase 0.
 
 **Added**
+
 - `plan.md` — eight phases, verification per phase, sequencing and risks.
 - **Version control.** The project was not a git repository at all. Initialised on
   `main` with one commit capturing the current state; `dist/` and `node_modules` are
@@ -23,12 +68,14 @@ product on Supabase plus a Node service, in TypeScript. Then executed its Phase 
   `CONTRIBUTING.md`.
 
 **Changed**
+
 - `README.md` rewritten from the Vite template: what the product is, how to run it,
   where things live, and an explicit note that the backend does not exist yet.
 - `src/lib/supabase.js` and `src/hooks/useConversations.js` read through `env` rather
   than touching `import.meta.env` directly.
 
 **Removed**
+
 - `socket.io-client`, `date-fns`, `autoprefixer`, `postcss` — four dependencies with
   zero imports between them. Tailwind 4's Vite plugin needs no PostCSS config.
 
@@ -42,6 +89,7 @@ Closed the "action buttons are inert" and "two copies of the queue" items from
 [decisions.md](decisions.md).
 
 **Added**
+
 - `src/state/WorkspaceProvider.jsx` and `src/state/workspace-context.js` — one
   workspace state shared by the inbox, queue and sidebar: assign, take next, bulk
   assign, snooze, resolve, reopen, send reply, edit policies, toggle escalation.
@@ -51,6 +99,7 @@ Closed the "action buttons are inert" and "two copies of the queue" items from
 - `src/lib/csv.js` — CSV builder and download used by the queue and reports exports.
 
 **Changed**
+
 - Queue: Take next claims the longest-waiting unassigned conversation and opens it,
   Bulk assign takes everything unassigned, Filter narrows to unassigned, Assign works
   per row, customer names open the thread, Export CSV downloads the visible rows.
@@ -73,6 +122,7 @@ to "Snoozed" in the sidebar; a policy target edit showed "Unsaved changes", save
 cleared; all three report ranges swap their numbers and captions.
 
 **Still open**
+
 - Team screen has no artboard.
 - Onboarding covers step 2 only.
 - No mobile layout for the workspace; below 880px it scrolls.
@@ -85,6 +135,7 @@ cleared; all three report ranges swap their numbers and captions.
 Implemented the four remaining artboards from `OmniSync Mockups.dc.html`.
 
 **Added**
+
 - `src/pages/QueuePage.jsx` — 1c Queue & assignment: one table sorted by longest
   wait, four summary stats, per-row policy/assignee, load-per-agent bars.
 - `src/pages/OnboardingPage.jsx` — 1e Onboarding, step 2 of 4: four-step rail and
@@ -94,6 +145,7 @@ Implemented the four remaining artboards from `OmniSync Mockups.dc.html`.
 - Routes `/example/queue` and `/setup`; sidebar Queue entry restored.
 
 **Changed**
+
 - `src/pages/AnalyticsPage.jsx` — replaced the interim version with 1d Reports:
   four metrics, the "Where does the time go?" hour chart, by-channel, agents and
   top subjects.
@@ -106,10 +158,12 @@ Implemented the four remaining artboards from `OmniSync Mockups.dc.html`.
   rather than crushing the three-pane layout.
 
 **Fixed**
+
 - Reports hour chart rendered empty: bars used percentage heights inside
   auto-height flex wrappers, so they resolved to zero. Wrappers are now `h-full`.
 
 **Known gaps**
+
 - Team screen has no artboard; it remains an interim design.
 - Onboarding is a single screen because only step 2 was drawn.
 - Settings tabs other than Targets state that they are not part of the demo.
@@ -124,6 +178,7 @@ Read `OmniSync Mockups.dc.html`, the Industry stylesheet and `support.js` from t
 Claude Design project, and rebuilt the site's visual language against them.
 
 **Added**
+
 - `design/industry-tokens.md` — extracted tokens, artboard inventory, landing copy
   and inbox detail, so the build no longer depends on browser access.
 - `src/components/Logo.jsx` — the new mark (two channels resolving into one line)
@@ -132,6 +187,7 @@ Claude Design project, and rebuilt the site's visual language against them.
   sections from artboard 1g.
 
 **Changed**
+
 - `src/index.css` — whole token system replaced: light ground `#f2f2f3`, ink
   `#1d1f20`, steel-blue accent, Barlow Condensed over Barlow, 2px radii, hairline
   rules. Added `.btn`, `.input`, `.tag`, `.panel`, `.label` and the `.sla` states.
@@ -145,11 +201,13 @@ Claude Design project, and rebuilt the site's visual language against them.
   delivery keyword", logged in the thread and configured in Settings.
 
 **Removed**
+
 - `GlassCard.jsx`, `GradientButton.jsx`, `BackgroundBlobs.jsx`, `HowItWorks.jsx`,
   `CTA.jsx`, `Features.jsx`, `Testimonials.jsx`, `FAQ.jsx`, `ROICalculator.jsx`,
   and the `testimonials`/`faqs` exports — superseded by the mockup's landing.
 
 **Fixed**
+
 - Declared `color-scheme: only light`, correct for a light-only design.
 
 ---
@@ -157,6 +215,7 @@ Claude Design project, and rebuilt the site's visual language against them.
 ## 2026-08-31 — Marketing site overhaul
 
 **Added**
+
 - Real pages replacing a shared placeholder: `AboutPage`, `BlogPage`, `CareersPage`,
   `ContactPage`, `LegalPage` (privacy/terms/cookies), `NotFoundPage`.
 - `src/content/site.js` for page copy; `src/lib/seo.js` for per-route title,
@@ -167,11 +226,13 @@ Claude Design project, and rebuilt the site's visual language against them.
 - Catch-all 404 route; skip link; `prefers-reduced-motion` handling.
 
 **Removed**
+
 - `DocumentPage.jsx` — 241 lines that rendered the same product dump on all seven
   company and legal routes.
 - Dead `App.css`, unused `vite.svg` and `react.svg`.
 
 **Fixed**
+
 - Fonts referenced by the design system were never loaded; everything fell back to
   system sans.
 - `index.html` title was `client`; no meta description, OG tags or favicon.
@@ -185,5 +246,6 @@ Claude Design project, and rebuilt the site's visual language against them.
 - `npm run lint` failed on every file: core ESLint cannot see JSX-only identifiers.
 
 **Performance**
+
 - Entry bundle 199 kB → 135 kB gzip: Supabase lazy-loaded, react-query moved into
   the dashboard chunk, dashboard route split out.

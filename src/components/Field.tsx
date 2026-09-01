@@ -1,10 +1,5 @@
 import React, { useId } from 'react';
-import type {
-    ComponentType,
-    InputHTMLAttributes,
-    SelectHTMLAttributes,
-    TextareaHTMLAttributes,
-} from 'react';
+import type { ComponentType, InputHTMLAttributes, SelectHTMLAttributes, TextareaHTMLAttributes } from 'react';
 
 interface FieldCommon {
     label: string;
@@ -67,7 +62,10 @@ export const Field = ({ label, error, hint, icon: Icon, className = '', ...rest 
                     />
                 )}
                 {as === 'textarea' ? (
-                    <textarea {...(controlProps as TextareaHTMLAttributes<HTMLTextAreaElement>)} {...shared} />
+                    <textarea
+                        {...(controlProps as TextareaHTMLAttributes<HTMLTextAreaElement>)}
+                        {...shared}
+                    />
                 ) : as === 'select' ? (
                     <select {...(controlProps as SelectHTMLAttributes<HTMLSelectElement>)} {...shared} />
                 ) : (

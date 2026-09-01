@@ -17,25 +17,39 @@ export const TeamPage = () => (
             <table className="mt-8 w-full text-left">
                 <thead>
                     <tr className="border-b rule">
-                        <th scope="col" className="label pb-2">Name</th>
-                        <th scope="col" className="label pb-2">Role</th>
-                        <th scope="col" className="label pb-2">Email</th>
-                        <th scope="col" className="label pb-2 text-right">Open</th>
+                        <th scope="col" className="label pb-2">
+                            Name
+                        </th>
+                        <th scope="col" className="label pb-2">
+                            Role
+                        </th>
+                        <th scope="col" className="label pb-2">
+                            Email
+                        </th>
+                        <th scope="col" className="label pb-2 text-right">
+                            Open
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     {team.map((member) => (
                         <tr key={member.id} className="border-b rule-soft">
-                            <td className="py-3 font-heading text-[16px] font-semibold text-ink">{member.name}</td>
+                            <td className="py-3 font-heading text-[16px] font-semibold text-ink">
+                                {member.name}
+                            </td>
                             <td className="py-3 text-[14px] text-neutral-700">{member.role}</td>
                             <td className="py-3 text-[14px] text-neutral-600">{member.email}</td>
-                            <td className="py-3 text-right font-mono text-[14px] tabular-nums text-ink">{member.open}</td>
+                            <td className="py-3 text-right font-mono text-[14px] tabular-nums text-ink">
+                                {member.open}
+                            </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
 
-            <button type="button" className="btn btn-secondary mt-6">Invite an agent</button>
+            <button type="button" className="btn btn-secondary mt-6">
+                Invite an agent
+            </button>
         </div>
     </div>
 );

@@ -22,8 +22,18 @@ export const conversations: Conversation[] = [
         phone: '+44 7700 900412',
         previousConversations: 4,
         messages: [
-            { id: 1, sender: 'customer', time: '10:59', text: 'Where is my package?? It was due yesterday and nobody has told me anything.' },
-            { id: 2, sender: 'customer', time: '11:01', text: 'Order 204118. I have been a customer for three years, this is the first time.' },
+            {
+                id: 1,
+                sender: 'customer',
+                time: '10:59',
+                text: 'Where is my package?? It was due yesterday and nobody has told me anything.',
+            },
+            {
+                id: 2,
+                sender: 'customer',
+                time: '11:01',
+                text: 'Order 204118. I have been a customer for three years, this is the first time.',
+            },
             {
                 id: 3,
                 sender: 'rule',
@@ -47,7 +57,12 @@ export const conversations: Conversation[] = [
             courier: 'Evri · last scan Leeds depot, 20 Aug',
             status: 'Delayed in transit',
         },
-        sla: { policy: 'VIP · 5 min', firstResponse: 'Missed by 04:12', resolution: '4 hours', hours: '08:00–20:00 GMT' },
+        sla: {
+            policy: 'VIP · 5 min',
+            firstResponse: 'Missed by 04:12',
+            resolution: '4 hours',
+            hours: '08:00–20:00 GMT',
+        },
         recent: [
             { subject: 'Sizing question', meta: '2 Jul · resolved in 6m' },
             { subject: 'Order 198220 late', meta: '14 May · resolved in 22m' },
@@ -70,9 +85,24 @@ export const conversations: Conversation[] = [
         phone: '+44 7700 900118',
         previousConversations: 2,
         messages: [
-            { id: 1, sender: 'customer', time: '10:42', text: 'I received order #192837 yesterday but the shirt is ripped.' },
-            { id: 2, sender: 'agent', time: '10:45', text: 'Sorry about that, Sarah. Could you send a photo of the damage?' },
-            { id: 3, sender: 'customer', time: '10:47', text: 'Sent. I needed it for an event this weekend — can I get a replacement fast?' },
+            {
+                id: 1,
+                sender: 'customer',
+                time: '10:42',
+                text: 'I received order #192837 yesterday but the shirt is ripped.',
+            },
+            {
+                id: 2,
+                sender: 'agent',
+                time: '10:45',
+                text: 'Sorry about that, Sarah. Could you send a photo of the damage?',
+            },
+            {
+                id: 3,
+                sender: 'customer',
+                time: '10:47',
+                text: 'Sent. I needed it for an event this weekend — can I get a replacement fast?',
+            },
         ],
         customer: { since: 'Jan 2024', orders: 4, lifetime: '£312', tags: ['Returns'] },
         order: {
@@ -82,7 +112,12 @@ export const conversations: Conversation[] = [
             courier: 'Royal Mail · delivered 19 Aug',
             status: 'Return requested',
         },
-        sla: { policy: 'Standard · 15 min', firstResponse: 'Missed by 02:47', resolution: '8 hours', hours: '08:00–20:00 GMT' },
+        sla: {
+            policy: 'Standard · 15 min',
+            firstResponse: 'Missed by 02:47',
+            resolution: '8 hours',
+            hours: '08:00–20:00 GMT',
+        },
         recent: [{ subject: 'Where is my order', meta: '2 Aug · resolved in 14m' }],
     },
     {
@@ -101,12 +136,27 @@ export const conversations: Conversation[] = [
         phone: '+44 7700 900204',
         previousConversations: 1,
         messages: [
-            { id: 1, sender: 'customer', time: '09:00', text: 'Can I get a quote for a bulk order of 50 jackets?' },
-            { id: 2, sender: 'agent', time: '09:12', text: 'Absolutely — what sizes and by when do you need them?' },
+            {
+                id: 1,
+                sender: 'customer',
+                time: '09:00',
+                text: 'Can I get a quote for a bulk order of 50 jackets?',
+            },
+            {
+                id: 2,
+                sender: 'agent',
+                time: '09:12',
+                text: 'Absolutely — what sizes and by when do you need them?',
+            },
         ],
         customer: { since: 'Nov 2025', orders: 1, lifetime: '£240', tags: ['Wholesale'] },
         order: null,
-        sla: { policy: 'Standard · 15 min', firstResponse: 'Met in 12m', resolution: '8 hours', hours: '08:00–20:00 GMT' },
+        sla: {
+            policy: 'Standard · 15 min',
+            firstResponse: 'Met in 12m',
+            resolution: '8 hours',
+            hours: '08:00–20:00 GMT',
+        },
         recent: [],
     },
     {
@@ -127,7 +177,12 @@ export const conversations: Conversation[] = [
         messages: [{ id: 1, sender: 'customer', time: '11:04', text: 'Do you ship to Canada?' }],
         customer: { since: 'First contact', orders: 0, lifetime: '£0', tags: [] },
         order: null,
-        sla: { policy: 'Standard · 15 min', firstResponse: 'Due in 15m', resolution: '8 hours', hours: '08:00–20:00 GMT' },
+        sla: {
+            policy: 'Standard · 15 min',
+            firstResponse: 'Due in 15m',
+            resolution: '8 hours',
+            hours: '08:00–20:00 GMT',
+        },
         recent: [],
     },
     {
@@ -145,10 +200,17 @@ export const conversations: Conversation[] = [
         filters: [],
         phone: '@priya.r',
         previousConversations: 3,
-        messages: [{ id: 1, sender: 'customer', time: '10:38', text: 'Is the ocean blue jacket back in stock yet?' }],
+        messages: [
+            { id: 1, sender: 'customer', time: '10:38', text: 'Is the ocean blue jacket back in stock yet?' },
+        ],
         customer: { since: 'Feb 2024', orders: 6, lifetime: '£690', tags: ['VIP'] },
         order: null,
-        sla: { policy: 'VIP · 5 min', firstResponse: 'Met in 3m', resolution: '4 hours', hours: '08:00–20:00 GMT' },
+        sla: {
+            policy: 'VIP · 5 min',
+            firstResponse: 'Met in 3m',
+            resolution: '4 hours',
+            hours: '08:00–20:00 GMT',
+        },
         recent: [],
     },
     {
@@ -166,10 +228,22 @@ export const conversations: Conversation[] = [
         filters: [],
         phone: '+44 7700 900771',
         previousConversations: 1,
-        messages: [{ id: 1, sender: 'customer', time: '10:29', text: 'Could you send a copy of the invoice for August?' }],
+        messages: [
+            {
+                id: 1,
+                sender: 'customer',
+                time: '10:29',
+                text: 'Could you send a copy of the invoice for August?',
+            },
+        ],
         customer: { since: 'Jun 2024', orders: 9, lifetime: '£1,120', tags: ['Wholesale'] },
         order: null,
-        sla: { policy: 'Standard · 15 min', firstResponse: 'Due in 4m', resolution: '8 hours', hours: '08:00–20:00 GMT' },
+        sla: {
+            policy: 'Standard · 15 min',
+            firstResponse: 'Due in 4m',
+            resolution: '8 hours',
+            hours: '08:00–20:00 GMT',
+        },
         recent: [],
     },
     {
@@ -190,7 +264,12 @@ export const conversations: Conversation[] = [
         messages: [{ id: 1, sender: 'customer', time: '08:00', text: 'Thanks for the quick refund!' }],
         customer: { since: 'Sep 2024', orders: 3, lifetime: '£188', tags: [] },
         order: null,
-        sla: { policy: 'Standard · 15 min', firstResponse: 'Met in 4m', resolution: 'Closed', hours: '08:00–20:00 GMT' },
+        sla: {
+            policy: 'Standard · 15 min',
+            firstResponse: 'Met in 4m',
+            resolution: 'Closed',
+            hours: '08:00–20:00 GMT',
+        },
         recent: [],
     },
 ];

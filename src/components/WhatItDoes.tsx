@@ -26,9 +26,12 @@ const items = [
 export const WhatItDoes = () => (
     <section id="product" className="border-b rule" aria-labelledby="product-heading">
         <div className="mx-auto max-w-[1240px] px-6 py-16">
-            <h2 id="product-heading" className="text-[34px] md:text-[38px]">What it does</h2>
+            <h2 id="product-heading" className="text-[34px] md:text-[38px]">
+                What it does
+            </h2>
             <p className="mt-4 max-w-[540px] text-[16px] leading-relaxed text-neutral-700">
-                Four things, all of them plumbing. Nothing writes to a customer without an agent pressing send.
+                Four things, all of them plumbing. Nothing writes to a customer without an agent pressing
+                send.
             </p>
 
             <ol className="mt-12 grid gap-px bg-[color-mix(in_srgb,#1d1f20_9%,transparent)] md:grid-cols-4">

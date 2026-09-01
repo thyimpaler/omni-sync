@@ -18,7 +18,8 @@ const COLUMNS: CsvColumn<Conversation>[] = [
 
 /* 1c — one table, sorted by who has waited longest. */
 export const QueuePage = () => {
-    const { conversations, assign, takeNext, assignAllUnassigned, nextUnassigned, setActiveId } = useWorkspace();
+    const { conversations, assign, takeNext, assignAllUnassigned, nextUnassigned, setActiveId } =
+        useWorkspace();
     const [unassignedOnly, setUnassignedOnly] = useState(false);
     const navigate = useNavigate();
 
@@ -78,7 +79,8 @@ export const QueuePage = () => {
                     <div>
                         <h1 className="text-[32px]">Queue</h1>
                         <p className="mt-1 text-[14px] text-neutral-700">
-                            {open.length} open across two channels · {unassignedCount} unassigned · {breachedCount} past target
+                            {open.length} open across two channels · {unassignedCount} unassigned ·{' '}
+                            {breachedCount} past target
                         </p>
                     </div>
                     <div className="flex flex-wrap gap-2">
@@ -127,17 +129,32 @@ export const QueuePage = () => {
                         <table className="w-full min-w-[640px] text-left">
                             <thead>
                                 <tr className="border-b rule">
-                                    <th scope="col" className="label pb-2">Customer</th>
-                                    <th scope="col" className="label pb-2">Channel</th>
-                                    <th scope="col" className="label pb-2">Subject</th>
-                                    <th scope="col" className="label pb-2">Policy</th>
-                                    <th scope="col" className="label pb-2 text-right">Waiting</th>
-                                    <th scope="col" className="label pb-2 text-right">Assignee</th>
+                                    <th scope="col" className="label pb-2">
+                                        Customer
+                                    </th>
+                                    <th scope="col" className="label pb-2">
+                                        Channel
+                                    </th>
+                                    <th scope="col" className="label pb-2">
+                                        Subject
+                                    </th>
+                                    <th scope="col" className="label pb-2">
+                                        Policy
+                                    </th>
+                                    <th scope="col" className="label pb-2 text-right">
+                                        Waiting
+                                    </th>
+                                    <th scope="col" className="label pb-2 text-right">
+                                        Assignee
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {rows.map((row) => (
-                                    <tr key={row.id} className="border-b align-top transition-colors hover:bg-neutral-200/40 rule-soft">
+                                    <tr
+                                        key={row.id}
+                                        className="border-b align-top transition-colors hover:bg-neutral-200/40 rule-soft"
+                                    >
                                         <th scope="row" className="py-3 pr-4 text-left font-normal">
                                             <button
                                                 type="button"
@@ -147,12 +164,20 @@ export const QueuePage = () => {
                                                 <span className="block font-heading text-[16px] font-semibold text-ink">
                                                     {row.name}
                                                 </span>
-                                                {row.note && <span className="block text-[12px] text-neutral-600">{row.note}</span>}
+                                                {row.note && (
+                                                    <span className="block text-[12px] text-neutral-600">
+                                                        {row.note}
+                                                    </span>
+                                                )}
                                             </button>
                                         </th>
-                                        <td className="py-3 pr-4 text-[14px] text-neutral-700">{row.channel}</td>
+                                        <td className="py-3 pr-4 text-[14px] text-neutral-700">
+                                            {row.channel}
+                                        </td>
                                         <td className="py-3 pr-4 text-[14px] text-ink">{row.subject}</td>
-                                        <td className="py-3 pr-4 text-[13px] text-neutral-600">{row.policy}</td>
+                                        <td className="py-3 pr-4 text-[13px] text-neutral-600">
+                                            {row.policy}
+                                        </td>
                                         <td className="py-3 pr-4 text-right">
                                             <span className={`sla sla-${row.state}`}>
                                                 <span>{row.waiting}</span>
@@ -160,7 +185,9 @@ export const QueuePage = () => {
                                         </td>
                                         <td className="py-3 text-right">
                                             {row.assignee ? (
-                                                <span className="text-[14px] text-neutral-700">{row.assignee}</span>
+                                                <span className="text-[14px] text-neutral-700">
+                                                    {row.assignee}
+                                                </span>
                                             ) : (
                                                 <button
                                                     type="button"
@@ -185,10 +212,13 @@ export const QueuePage = () => {
                     </div>
 
                     <aside aria-labelledby="load-heading">
-                        <h2 id="load-heading" className="label mb-3">Load per agent</h2>
+                        <h2 id="load-heading" className="label mb-3">
+                            Load per agent
+                        </h2>
                         <ul className="space-y-2">
                             {agentLoad.map((agent) => {
-                                const live = agent.open + open.filter((c) => c.assignee === agent.name).length;
+                                const live =
+                                    agent.open + open.filter((c) => c.assignee === agent.name).length;
                                 return (
                                     <li key={agent.name} className="flex items-center gap-2 text-[13px]">
                                         <span className="w-20 shrink-0 text-neutral-700">{agent.name}</span>
@@ -198,7 +228,9 @@ export const QueuePage = () => {
                                                 style={{ width: `${Math.min(100, (live / 12) * 100)}%` }}
                                             />
                                         </span>
-                                        <span className="w-4 text-right font-mono tabular-nums text-ink">{live}</span>
+                                        <span className="w-4 text-right font-mono tabular-nums text-ink">
+                                            {live}
+                                        </span>
                                     </li>
                                 );
                             })}

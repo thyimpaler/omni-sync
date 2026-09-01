@@ -23,12 +23,12 @@ npm run dev
 Then open http://localhost:5173. No configuration is needed for the demo — copy
 `.env.example` to `.env.local` when you have a Supabase project to point at.
 
-| Script | Does |
-|---|---|
-| `npm run dev` | Vite dev server with HMR |
-| `npm run build` | Production build to `dist/` |
+| Script            | Does                               |
+| ----------------- | ---------------------------------- |
+| `npm run dev`     | Vite dev server with HMR           |
+| `npm run build`   | Production build to `dist/`        |
 | `npm run preview` | Serve the production build locally |
-| `npm run lint` | ESLint across the repo |
+| `npm run lint`    | ESLint across the repo             |
 
 ## What is where
 

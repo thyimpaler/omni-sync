@@ -21,11 +21,7 @@ export const NotFoundPage = () => (
         <div className="panel p-8">
             <nav aria-label="Suggested pages" className="flex flex-wrap gap-3">
                 {SUGGESTIONS.map((item) => (
-                    <Link
-                        key={item.to}
-                        to={item.to}
-                        className="btn btn-secondary"
-                    >
+                    <Link key={item.to} to={item.to} className="btn btn-secondary">
                         {item.label}
                     </Link>
                 ))}
@@ -36,10 +32,7 @@ export const NotFoundPage = () => (
                     Back to home
                     <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </Link>
-                <Link
-                    to="/signup"
-                    className="btn btn-secondary px-6 py-3"
-                >
+                <Link to="/signup" className="btn btn-secondary px-6 py-3">
                     <Home className="h-5 w-5" aria-hidden="true" />
                     Start free trial
                 </Link>

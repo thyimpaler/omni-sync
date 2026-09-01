@@ -18,17 +18,17 @@ is months of work, and the long pole is not code — it is Meta app review.
 
 **Where we actually are:**
 
-| | Status |
-|---|---|
-| Version control | **None.** Not a git repository |
-| Tests | **None.** No runner, no test files |
-| CI | A CodeQL workflow targeting a `main` branch that does not exist |
-| Types | Plain JSX, no checking |
-| Backend | None. `useConversations.js` points at `localhost:3001` — nothing serves it |
-| Auth | `ProtectedRoute.jsx` hardcodes `isAuthenticated = true` |
-| Data | In-memory seed; a reload resets everything |
-| README | Still the Vite template |
-| Dead deps | `socket.io-client`, `date-fns` — zero imports |
+|                 | Status                                                                     |
+| --------------- | -------------------------------------------------------------------------- |
+| Version control | **None.** Not a git repository                                             |
+| Tests           | **None.** No runner, no test files                                         |
+| CI              | A CodeQL workflow targeting a `main` branch that does not exist            |
+| Types           | Plain JSX, no checking                                                     |
+| Backend         | None. `useConversations.js` points at `localhost:3001` — nothing serves it |
+| Auth            | `ProtectedRoute.jsx` hardcodes `isAuthenticated = true`                    |
+| Data            | In-memory seed; a reload resets everything                                 |
+| README          | Still the Vite template                                                    |
+| Dead deps       | `socket.io-client`, `date-fns` — zero imports                              |
 
 **Intended outcome:** a multi-tenant support inbox real teams can pay for, where the
 SLA clock is authoritative, workspaces cannot see each other's data, and nothing is
@@ -79,11 +79,11 @@ Nothing else is safe until this exists.
 
 **Testing** — Vitest + React Testing Library for units, Playwright for flows:
 
-| Layer | Covers |
-|---|---|
-| Unit | `waitingSeconds` sorting, `toCsv` escaping, SLA state derivation, policy matching |
-| Component | `ConversationList` filters, `Modal` focus trap + Escape, `Field` error wiring, `SettingsPage` dirty state |
-| E2E | signup → onboarding → connect channel → inbox reply; queue Take next → thread; policy edit → save; CSV export |
+| Layer     | Covers                                                                                                        |
+| --------- | ------------------------------------------------------------------------------------------------------------- |
+| Unit      | `waitingSeconds` sorting, `toCsv` escaping, SLA state derivation, policy matching                             |
+| Component | `ConversationList` filters, `Modal` focus trap + Escape, `Field` error wiring, `SettingsPage` dirty state     |
+| E2E       | signup → onboarding → connect channel → inbox reply; queue Take next → thread; policy edit → save; CSV export |
 
 **Tooling:** Prettier; `eslint-plugin-jsx-a11y`; `vitest --coverage`; Husky + lint-staged.
 
@@ -182,15 +182,15 @@ The point of this phase is that the screens barely change.
 
 ## Phase 6 — Production readiness (~2 weeks)
 
-| Area | Work |
-|---|---|
-| Errors | Error boundary per route + Sentry, source maps uploaded |
-| Logging | Structured logs with workspace/conversation correlation ids |
-| Security | CSP and security headers, secret management, dependency scanning, pen test |
-| Accessibility | axe in CI plus a manual screen-reader pass; target WCAG 2.2 AA |
-| Performance | Lighthouse CI budget; entry bundle currently 137 kB gzip — hold it under 150 |
-| Data | Automated backups, tested restore, documented retention matching the privacy policy |
-| Ops | Uptime monitoring, SLOs, alerting, runbooks, on-call |
+| Area          | Work                                                                                |
+| ------------- | ----------------------------------------------------------------------------------- |
+| Errors        | Error boundary per route + Sentry, source maps uploaded                             |
+| Logging       | Structured logs with workspace/conversation correlation ids                         |
+| Security      | CSP and security headers, secret management, dependency scanning, pen test          |
+| Accessibility | axe in CI plus a manual screen-reader pass; target WCAG 2.2 AA                      |
+| Performance   | Lighthouse CI budget; entry bundle currently 137 kB gzip — hold it under 150        |
+| Data          | Automated backups, tested restore, documented retention matching the privacy policy |
+| Ops           | Uptime monitoring, SLOs, alerting, runbooks, on-call                                |
 
 ---
 

@@ -15,7 +15,9 @@ export const AboutPage = () => (
         <div className="mb-14 grid grid-cols-2 gap-4 md:grid-cols-4">
             {stats.map((stat) => (
                 <div key={stat.label} className="border-l pl-4 rule-soft">
-                    <div className="font-heading text-[30px] font-semibold leading-none text-ink">{stat.value}</div>
+                    <div className="font-heading text-[30px] font-semibold leading-none text-ink">
+                        {stat.value}
+                    </div>
                     <div className="mt-2 text-[13px] leading-snug text-neutral-600">{stat.label}</div>
                 </div>
             ))}
@@ -23,9 +25,7 @@ export const AboutPage = () => (
 
         <ContentSections sections={aboutSections} />
 
-        <h2 className="mb-6 mt-14 border-b pb-2 text-[24px] rule-soft">
-            What we hold to
-        </h2>
+        <h2 className="mb-6 mt-14 border-b pb-2 text-[24px] rule-soft">What we hold to</h2>
         <div className="grid gap-6 md:grid-cols-3">
             {values.map((value) => (
                 <div key={value.title} className="border-l pl-5 rule-soft">

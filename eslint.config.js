@@ -1,10 +1,11 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import react from 'eslint-plugin-react'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import tseslint from 'typescript-eslint'
-import { defineConfig, globalIgnores } from 'eslint/config'
+import js from '@eslint/js';
+import globals from 'globals';
+import react from 'eslint-plugin-react';
+import jsxA11y from 'eslint-plugin-jsx-a11y';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
+import tseslint from 'typescript-eslint';
+import { defineConfig, globalIgnores } from 'eslint/config';
 
 const shared = {
   languageOptions: {
@@ -17,7 +18,7 @@ const shared = {
     },
   },
   plugins: { react },
-}
+};
 
 export default defineConfig([
   globalIgnores(['dist', 'coverage', 'playwright-report', 'test-results']),
@@ -25,7 +26,12 @@ export default defineConfig([
   // Remaining JavaScript, being migrated to TypeScript file by file.
   {
     files: ['**/*.{js,jsx}'],
-    extends: [js.configs.recommended, reactHooks.configs.flat.recommended, reactRefresh.configs.vite],
+    extends: [
+      js.configs.recommended,
+      jsxA11y.flatConfigs.recommended,
+      reactHooks.configs.flat.recommended,
+      reactRefresh.configs.vite,
+    ],
     ...shared,
     rules: {
       // Without this, no-unused-vars cannot see identifiers that are only
@@ -41,6 +47,7 @@ export default defineConfig([
     extends: [
       js.configs.recommended,
       ...tseslint.configs.recommended,
+      jsxA11y.flatConfigs.recommended,
       reactHooks.configs.flat.recommended,
       reactRefresh.configs.vite,
     ],
@@ -67,4 +74,4 @@ export default defineConfig([
       'react-refresh/only-export-components': 'off',
     },
   },
-])
+]);

@@ -12,7 +12,12 @@ const Harness = () => {
             <button type="button" onClick={() => setOpen(true)}>
                 Talk to sales
             </button>
-            <Modal open={open} onClose={() => setOpen(false)} title="Talk to sales" description="Tell us more">
+            <Modal
+                open={open}
+                onClose={() => setOpen(false)}
+                title="Talk to sales"
+                description="Tell us more"
+            >
                 <input aria-label="Your name" />
                 <button type="button">Send</button>
             </Modal>

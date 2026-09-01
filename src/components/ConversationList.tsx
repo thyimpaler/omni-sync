@@ -39,7 +39,10 @@ export const ConversationList = () => {
                 </div>
 
                 <div className="relative">
-                    <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-500" aria-hidden="true" />
+                    <Search
+                        className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-500"
+                        aria-hidden="true"
+                    />
                     <input
                         type="search"
                         value={query}
@@ -60,7 +63,9 @@ export const ConversationList = () => {
                                 onClick={() => setFilter(f.key)}
                                 aria-pressed={active}
                                 className={`px-2 py-1 font-heading text-[11px] font-semibold uppercase tracking-[0.1em] transition-colors ${
-                                    active ? 'bg-ink text-neutral-100' : 'bg-neutral-200 text-neutral-700 hover:bg-neutral-300'
+                                    active
+                                        ? 'bg-ink text-neutral-100'
+                                        : 'bg-neutral-200 text-neutral-700 hover:bg-neutral-300'
                                 }`}
                             >
                                 {f.label}
@@ -86,7 +91,9 @@ export const ConversationList = () => {
                                 onClick={() => setActiveId(chat.id)}
                                 aria-current={active ? 'true' : undefined}
                                 className={`flex w-full items-start justify-between gap-3 border-b px-4 py-3 text-left transition-colors rule-soft ${
-                                    active ? 'border-l-2 border-l-ink bg-neutral-200/70' : 'hover:bg-neutral-200/40'
+                                    active
+                                        ? 'border-l-2 border-l-ink bg-neutral-200/70'
+                                        : 'hover:bg-neutral-200/40'
                                 }`}
                             >
                                 <span className="min-w-0">
@@ -94,9 +101,14 @@ export const ConversationList = () => {
                                         {chat.name}
                                     </span>
                                     <span className="block truncate text-[12px] text-neutral-600">
-                                        {chat.channel} · {chat.status === 'resolved' ? 'resolved' : chat.assignee ?? 'unassigned'}
+                                        {chat.channel} ·{' '}
+                                        {chat.status === 'resolved'
+                                            ? 'resolved'
+                                            : (chat.assignee ?? 'unassigned')}
                                     </span>
-                                    <span className="mt-1 block truncate text-[13px] text-neutral-700">{chat.preview}</span>
+                                    <span className="mt-1 block truncate text-[13px] text-neutral-700">
+                                        {chat.preview}
+                                    </span>
                                 </span>
                                 <span className={`sla sla-${chat.state} shrink-0`}>
                                     <span>{chat.waiting}</span>

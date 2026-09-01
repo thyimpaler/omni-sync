@@ -28,7 +28,9 @@ export const CareersPage = () => (
                         <article className="flex flex-col gap-4 border-b pb-5 md:flex-row md:items-center md:justify-between rule-soft">
                             <div>
                                 <h3 className="text-[20px]">{job.title}</h3>
-                                <p className="mt-1 max-w-xl text-[14px] leading-relaxed text-neutral-700">{job.blurb}</p>
+                                <p className="mt-1 max-w-xl text-[14px] leading-relaxed text-neutral-700">
+                                    {job.blurb}
+                                </p>
                                 <div className="mt-3 flex flex-wrap items-center gap-4 text-[12px] text-neutral-600">
                                     <span className="inline-flex items-center gap-1.5">
                                         <Users className="h-3.5 w-3.5" aria-hidden="true" />
@@ -62,10 +64,22 @@ export const CareersPage = () => (
                     How hiring works
                 </h2>
                 <ol className="space-y-3 text-[14px] leading-relaxed text-neutral-700">
-                    <li><span className="font-semibold text-ink">1.</span> A 30-minute call about what you have built.</li>
-                    <li><span className="font-semibold text-ink">2.</span> A paid, three-hour exercise on a real problem from our backlog.</li>
-                    <li><span className="font-semibold text-ink">3.</span> A session with the team you would join, plus a conversation with a customer.</li>
-                    <li><span className="font-semibold text-ink">4.</span> Offer, within two working days of the last call.</li>
+                    <li>
+                        <span className="font-semibold text-ink">1.</span> A 30-minute call about what you
+                        have built.
+                    </li>
+                    <li>
+                        <span className="font-semibold text-ink">2.</span> A paid, three-hour exercise on a
+                        real problem from our backlog.
+                    </li>
+                    <li>
+                        <span className="font-semibold text-ink">3.</span> A session with the team you would
+                        join, plus a conversation with a customer.
+                    </li>
+                    <li>
+                        <span className="font-semibold text-ink">4.</span> Offer, within two working days of
+                        the last call.
+                    </li>
                 </ol>
             </div>
             <div>
@@ -82,9 +96,7 @@ export const CareersPage = () => (
         </section>
 
         <section className="mt-14">
-            <h2 className="mb-6 border-b pb-2 text-[24px] rule-soft">
-                How we think
-            </h2>
+            <h2 className="mb-6 border-b pb-2 text-[24px] rule-soft">How we think</h2>
             <div className="grid gap-6 md:grid-cols-3">
                 {values.map((value) => (
                     <div key={value.title} className="border-l pl-5 rule-soft">

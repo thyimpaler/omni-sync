@@ -40,7 +40,11 @@ export const PageShell = ({
                 <header className="border-b pb-10 rule">
                     {eyebrow && <p className="label">{eyebrow}</p>}
                     <h1 className="mt-4 text-[40px] leading-[1.08] md:text-[48px]">{title}</h1>
-                    {intro && <p className="mt-5 max-w-[620px] text-[17px] leading-relaxed text-neutral-700">{intro}</p>}
+                    {intro && (
+                        <p className="mt-5 max-w-[620px] text-[17px] leading-relaxed text-neutral-700">
+                            {intro}
+                        </p>
+                    )}
                 </header>
 
                 <div className="pt-10">{children}</div>
@@ -66,7 +70,10 @@ export const ContentSections = ({ sections }: { sections: ContentSection[] }) =>
                     <ul className="mt-4 space-y-2">
                         {section.bullets.map((b) => (
                             <li key={b.slice(0, 40)} className="flex gap-3 leading-relaxed text-neutral-700">
-                                <span className="mt-2.5 h-1.5 w-1.5 shrink-0 bg-accent-600" aria-hidden="true" />
+                                <span
+                                    className="mt-2.5 h-1.5 w-1.5 shrink-0 bg-accent-600"
+                                    aria-hidden="true"
+                                />
                                 {b}
                             </li>
                         ))}

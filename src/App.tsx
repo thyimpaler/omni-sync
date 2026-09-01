@@ -16,13 +16,15 @@ import { NotFoundPage } from './pages/NotFoundPage';
 import { OnboardingPage } from './pages/OnboardingPage';
 
 /* The demo workspace is a separate chunk — marketing visitors never download it. */
-const DashboardPage = lazy(() =>
-    import('./pages/DashboardPage').then((m) => ({ default: m.DashboardPage }))
-);
+const DashboardPage = lazy(() => import('./pages/DashboardPage').then((m) => ({ default: m.DashboardPage })));
 
 const RouteFallback = () => (
     <div className="flex min-h-screen items-center justify-center bg-ground text-neutral-600">
-        <span className="h-7 w-7 animate-spin rounded-full border-2 border-accent-600 border-t-transparent" role="status" aria-label="Loading" />
+        <span
+            className="h-7 w-7 animate-spin rounded-full border-2 border-accent-600 border-t-transparent"
+            role="status"
+            aria-label="Loading"
+        />
     </div>
 );
 

@@ -72,7 +72,9 @@ export const SettingsPage = () => {
                             aria-selected={tab === name}
                             onClick={() => setTab(name)}
                             className={`-mb-px border-b-2 pb-2 font-heading text-[12px] font-semibold uppercase tracking-[0.1em] transition-colors ${
-                                tab === name ? 'border-ink text-ink' : 'border-transparent text-neutral-600 hover:text-ink'
+                                tab === name
+                                    ? 'border-ink text-ink'
+                                    : 'border-transparent text-neutral-600 hover:text-ink'
                             }`}
                         >
                             {name}
@@ -88,9 +90,12 @@ export const SettingsPage = () => {
                     <div className="mt-8 grid gap-10 lg:grid-cols-[1fr_280px]">
                         <div>
                             <section aria-labelledby="policies-heading">
-                                <h2 id="policies-heading" className="text-[24px]">Policies</h2>
+                                <h2 id="policies-heading" className="text-[24px]">
+                                    Policies
+                                </h2>
                                 <p className="mt-2 max-w-[540px] text-[14px] leading-relaxed text-neutral-700">
-                                    A conversation takes the first policy whose conditions match, read top to bottom.
+                                    A conversation takes the first policy whose conditions match, read top to
+                                    bottom.
                                 </p>
 
                                 <ul className="mt-6">
@@ -100,40 +105,76 @@ export const SettingsPage = () => {
                                             <li key={policy.n} className="border-b py-5 rule-soft">
                                                 <div className="flex items-start justify-between gap-6">
                                                     <div className="flex min-w-0 gap-4">
-                                                        <span className="font-mono text-[13px] text-accent-600">{policy.n}</span>
+                                                        <span className="font-mono text-[13px] text-accent-600">
+                                                            {policy.n}
+                                                        </span>
                                                         <div className="min-w-0">
                                                             {isEditing ? (
                                                                 <div className="space-y-2">
-                                                                    <label className="label block" htmlFor={`name-${policy.n}`}>
+                                                                    <label
+                                                                        className="label block"
+                                                                        htmlFor={`name-${policy.n}`}
+                                                                    >
                                                                         Policy name
                                                                     </label>
                                                                     <input
                                                                         id={`name-${policy.n}`}
                                                                         className="input"
                                                                         value={policy.name}
-                                                                        onChange={(e) => updatePolicy(policy.n, { name: e.target.value })}
+                                                                        onChange={(e) =>
+                                                                            updatePolicy(policy.n, {
+                                                                                name: e.target.value,
+                                                                            })
+                                                                        }
                                                                     />
-                                                                    <label className="label block" htmlFor={`cond-${policy.n}`}>
+                                                                    <label
+                                                                        className="label block"
+                                                                        htmlFor={`cond-${policy.n}`}
+                                                                    >
                                                                         Applies when
                                                                     </label>
                                                                     <input
                                                                         id={`cond-${policy.n}`}
                                                                         className="input"
                                                                         value={policy.condition}
-                                                                        onChange={(e) => updatePolicy(policy.n, { condition: e.target.value })}
+                                                                        onChange={(e) =>
+                                                                            updatePolicy(policy.n, {
+                                                                                condition: e.target.value,
+                                                                            })
+                                                                        }
                                                                     />
                                                                 </div>
                                                             ) : (
                                                                 <>
-                                                                    <h3 className="text-[19px]">{policy.name}</h3>
+                                                                    <h3 className="text-[19px]">
+                                                                        {policy.name}
+                                                                    </h3>
                                                                     <p className="mt-1 max-w-[420px] text-[13px] text-neutral-600">
                                                                         {policy.condition}
                                                                     </p>
-                                                                    {(policy.resolution || policy.escalates) && (
+                                                                    {(policy.resolution ||
+                                                                        policy.escalates) && (
                                                                         <p className="mt-3 text-[12px] text-neutral-600">
-                                                                            {policy.resolution && <>Resolution target · {policy.resolution}</>}
-                                                                            {policy.escalates && <> · Escalates to · {policy.escalates}</>}
-                                                                            {policy.applies && <> · Applies to · {policy.applies}</>}
+                                                                            {policy.resolution && (
+                                                                                <>
+                                                                                    Resolution target ·{' '}
+                                                                                    {policy.resolution}
+                                                                                </>
+                                                                            )}
+                                                                            {policy.escalates && (
+                                                                                <>
+                                                                                    {' '}
+                                                                                    · Escalates to ·{' '}
+                                                                                    {policy.escalates}
+                                                                                </>
+                                                                            )}
+                                                                            {policy.applies && (
+                                                                                <>
+                                                                                    {' '}
+                                                                                    · Applies to ·{' '}
+                                                                                    {policy.applies}
+                                                                                </>
+                                                                            )}
                                                                         </p>
                                                                     )}
                                                                 </>
@@ -144,14 +185,21 @@ export const SettingsPage = () => {
                                                     <div className="shrink-0 text-right">
                                                         {isEditing ? (
                                                             <>
-                                                                <label className="label block text-right" htmlFor={`target-${policy.n}`}>
+                                                                <label
+                                                                    className="label block text-right"
+                                                                    htmlFor={`target-${policy.n}`}
+                                                                >
                                                                     First response
                                                                 </label>
                                                                 <input
                                                                     id={`target-${policy.n}`}
                                                                     className="input mt-1 w-28 text-right font-mono"
                                                                     value={policy.target}
-                                                                    onChange={(e) => updatePolicy(policy.n, { target: e.target.value })}
+                                                                    onChange={(e) =>
+                                                                        updatePolicy(policy.n, {
+                                                                            target: e.target.value,
+                                                                        })
+                                                                    }
                                                                 />
                                                                 <button
                                                                     type="button"
@@ -189,13 +237,20 @@ export const SettingsPage = () => {
                             </section>
 
                             <section className="mt-12" aria-labelledby="missed-heading">
-                                <h2 id="missed-heading" className="text-[24px]">When a target is missed</h2>
+                                <h2 id="missed-heading" className="text-[24px]">
+                                    When a target is missed
+                                </h2>
                                 <ul className="mt-5 space-y-3">
                                     {missedActions.map((action) => (
-                                        <li key={action.title} className="flex items-start justify-between gap-6 border p-4 rule-soft">
+                                        <li
+                                            key={action.title}
+                                            className="flex items-start justify-between gap-6 border p-4 rule-soft"
+                                        >
                                             <div>
                                                 <p className="text-[15px] text-ink">{action.title}</p>
-                                                <p className="mt-1 text-[13px] text-neutral-600">{action.note}</p>
+                                                <p className="mt-1 text-[13px] text-neutral-600">
+                                                    {action.note}
+                                                </p>
                                             </div>
                                             <button
                                                 type="button"
@@ -220,10 +275,20 @@ export const SettingsPage = () => {
                             </section>
 
                             <div className="mt-10 flex items-center gap-3">
-                                <button type="button" onClick={save} disabled={!dirty} className="btn btn-primary">
+                                <button
+                                    type="button"
+                                    onClick={save}
+                                    disabled={!dirty}
+                                    className="btn btn-primary"
+                                >
                                     Save changes
                                 </button>
-                                <button type="button" onClick={discard} disabled={!dirty} className="btn btn-secondary">
+                                <button
+                                    type="button"
+                                    onClick={discard}
+                                    disabled={!dirty}
+                                    className="btn btn-secondary"
+                                >
                                     Discard
                                 </button>
                                 {dirty && <p className="text-[13px] text-neutral-600">Unsaved changes</p>}
@@ -232,8 +297,12 @@ export const SettingsPage = () => {
 
                         <aside className="space-y-8">
                             <section aria-labelledby="effect-heading">
-                                <h2 id="effect-heading" className="label mb-3">Effect on last 30 days</h2>
-                                <p className="text-[13px] leading-relaxed text-neutral-700">{policyEffect.headline}</p>
+                                <h2 id="effect-heading" className="label mb-3">
+                                    Effect on last 30 days
+                                </h2>
+                                <p className="text-[13px] leading-relaxed text-neutral-700">
+                                    {policyEffect.headline}
+                                </p>
                                 <ul className="mt-4 space-y-3">
                                     {policyEffect.rows.map((row) => (
                                         <li key={row.name}>
@@ -244,7 +313,10 @@ export const SettingsPage = () => {
                                                 </span>
                                             </p>
                                             <span className="mt-1 block h-2 bg-neutral-200">
-                                                <span className="block h-2 bg-accent-400" style={{ width: `${row.compliance}%` }} />
+                                                <span
+                                                    className="block h-2 bg-accent-400"
+                                                    style={{ width: `${row.compliance}%` }}
+                                                />
                                             </span>
                                         </li>
                                     ))}
@@ -252,7 +324,9 @@ export const SettingsPage = () => {
                             </section>
 
                             <section aria-labelledby="changes-heading">
-                                <h2 id="changes-heading" className="label mb-3">Recent changes</h2>
+                                <h2 id="changes-heading" className="label mb-3">
+                                    Recent changes
+                                </h2>
                                 <ul className="space-y-3">
                                     {recentChanges.map((item) => (
                                         <li key={item.change}>

@@ -5,7 +5,13 @@ import { env } from '../lib/env';
 
 const FALLBACK = [
     { id: 1, customer: 'John Doe', status: 'open', sla_status: 'green', last_message: 'Hi there' },
-    { id: 2, customer: 'Jane Smith', status: 'open', sla_status: 'yellow', last_message: 'Need help with order' },
+    {
+        id: 2,
+        customer: 'Jane Smith',
+        status: 'open',
+        sla_status: 'yellow',
+        last_message: 'Need help with order',
+    },
     { id: 3, customer: 'Bob Ross', status: 'open', sla_status: 'red', last_message: 'Where is my painting?' },
 ];
 

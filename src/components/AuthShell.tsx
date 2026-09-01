@@ -46,7 +46,10 @@ export const AuthShell = ({
                 {footer && <div className="mt-6 text-center text-[14px] text-neutral-700">{footer}</div>}
 
                 <p className="mt-8 text-center">
-                    <Link to="/" className="inline-flex items-center gap-2 text-[14px] text-neutral-600 hover:text-ink">
+                    <Link
+                        to="/"
+                        className="inline-flex items-center gap-2 text-[14px] text-neutral-600 hover:text-ink"
+                    >
                         <ArrowLeft className="h-4 w-4" aria-hidden="true" />
                         Back to site
                     </Link>

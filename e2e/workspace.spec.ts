@@ -48,9 +48,15 @@ test.describe('workspace', () => {
     test('assigning in the queue moves the sidebar counts', async ({ page }) => {
         await page.goto('/example/queue');
 
-        const unassignedBefore = await page.getByRole('listitem').filter({ hasText: 'Unassigned' }).innerText();
+        const unassignedBefore = await page
+            .getByRole('listitem')
+            .filter({ hasText: 'Unassigned' })
+            .innerText();
         await page.getByRole('button', { name: 'Assign' }).first().click();
-        const unassignedAfter = await page.getByRole('listitem').filter({ hasText: 'Unassigned' }).innerText();
+        const unassignedAfter = await page
+            .getByRole('listitem')
+            .filter({ hasText: 'Unassigned' })
+            .innerText();
 
         expect(unassignedAfter).not.toBe(unassignedBefore);
     });
@@ -96,7 +102,9 @@ test.describe('workspace', () => {
         await expect(page.getByText('3m 41s')).toBeVisible();
         await page.getByRole('button', { name: '7 days' }).click();
         await expect(page.getByText('3m 12s')).toBeVisible();
-        await expect(page.getByText('25–31 August · both channels · compared with the week before')).toBeVisible();
+        await expect(
+            page.getByText('25–31 August · both channels · compared with the week before')
+        ).toBeVisible();
     });
 
     test('exporting the queue downloads a CSV with the real rows', async ({ page }) => {

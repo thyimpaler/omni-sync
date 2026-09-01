@@ -22,9 +22,7 @@ const read = (key: EnvKey): string => {
     if (value) return value;
 
     if (import.meta.env.PROD) {
-        throw new Error(
-            `Missing required environment variable ${key}. See .env.example for the full list.`
-        );
+        throw new Error(`Missing required environment variable ${key}. See .env.example for the full list.`);
     }
 
     if (!warned.has(key)) {

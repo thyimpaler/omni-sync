@@ -10,8 +10,11 @@ import { SettingsPage } from './SettingsPage';
 import { TeamPage } from './TeamPage';
 import { WorkspaceProvider } from '../state/WorkspaceProvider';
 
+/* flex-1, not w-full: as a flex sibling of the fixed-width sidebar, w-full
+   resolved to the whole container width and pushed the customer record off the
+   edge, where it covered the thread's action buttons. */
 const InboxView = () => (
-    <div className="flex h-full w-full min-w-[880px]">
+    <div className="flex h-full min-w-[880px] flex-1">
         <ConversationList />
         <ChatWindow />
     </div>

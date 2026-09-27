@@ -21,7 +21,7 @@ const shared = {
 };
 
 export default defineConfig([
-  globalIgnores(['dist', 'coverage', 'playwright-report', 'test-results']),
+  globalIgnores(['dist', 'coverage', 'playwright-report', 'test-results', 'server/node_modules']),
 
   // Remaining JavaScript, being migrated to TypeScript file by file.
   {
@@ -64,9 +64,21 @@ export default defineConfig([
     },
   },
 
+  // The Node service: no browser, no React, and Node's own globals.
+  {
+    files: ['server/**/*.ts'],
+    languageOptions: {
+      globals: globals.node,
+    },
+    rules: {
+      'react-refresh/only-export-components': 'off',
+      'react-hooks/rules-of-hooks': 'off',
+    },
+  },
+
   // Tests: vitest globals, and helper exports that are not components.
   {
-    files: ['src/**/*.{test,spec}.{ts,tsx}', 'src/test/**/*.{ts,tsx}'],
+    files: ['src/**/*.{test,spec}.{ts,tsx}', 'src/test/**/*.{ts,tsx}', 'supabase/tests/**/*.ts'],
     languageOptions: {
       globals: { ...globals.browser, ...globals.node },
     },

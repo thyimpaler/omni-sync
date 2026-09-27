@@ -5,6 +5,21 @@
 
 export type ChannelName = 'WhatsApp' | 'Instagram';
 
+/**
+ * A user's standing in a workspace. Ordered: a viewer reads, an agent works the
+ * inbox, an admin changes settings and people, an owner owns the workspace.
+ * The same ladder is enforced in `supabase/migrations` and in `server/`.
+ */
+export type MembershipRole = 'owner' | 'admin' | 'agent' | 'viewer';
+
+export interface Membership {
+    id: string;
+    workspaceId: string;
+    workspaceName: string;
+    workspaceSlug: string;
+    role: MembershipRole;
+}
+
 /** How a conversation's wait time reads: value, never colour. */
 export type SlaState = 'breached' | 'warning' | 'ontime' | 'closed';
 

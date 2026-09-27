@@ -6,6 +6,93 @@ choices rather than the edits themselves.
 
 ---
 
+## 2026-09-01 — Phase 2: the data model and the service behind it
+
+The whole of plan.md phase 2 except the parts that need a hosted Supabase project
+or Meta credentials. The screens are untouched — they still run on the in-memory
+seed, which is phase 3's job to change.
+
+**The schema** (`supabase/migrations/`)
+
+- Twelve tables, every tenant-owned one carrying `workspace_id`: workspaces,
+  memberships, channels, customers, policies, conversations, messages,
+  rule_events, sla_state, business_hours, saved_replies, audit_log.
+- Cross-workspace references are impossible by construction rather than by
+  convention: children reference `(workspace_id, id)`, so a conversation cannot
+  point at a customer in another tenant even when the service role asks. The one
+  reference that cannot work that way — an assignee, which points at
+  `auth.users` — is checked by trigger instead.
+- Triggers maintain what a message means for a conversation: `first_inbound_at`,
+  `first_response_at`, `last_message_at`, and stopping the first-response clock
+  the moment an agent replies rather than at the worker's next sweep.
+
+**Row-level security** (`20260901000300_rls.sql`)
+
+anon reads nothing at all. A member reads only their own workspace. Roles are a
+ladder — viewer, agent, admin, owner — and an admin can neither mint nor remove
+an owner. `sla_state` and `rule_events` are readable and never writable from a
+browser, which is what "the SLA clock is server-side" has to mean in practice. A
+message may only be inserted with `direction = 'outbound'` and
+`sender_id = auth.uid()`, and cannot be edited or deleted by anyone afterwards.
+
+**97 database tests** run the migrations into PGlite — Postgres 18 compiled to
+WebAssembly — and then attack them: every table asked "can workspace A see
+workspace B?" in both directions, the role ladder exercised rule by rule, and a
+guard that fails if any future table arrives without RLS or without a policy.
+This is the phase's exit criterion from plan.md, met without Docker or a hosted
+project, and it runs in CI on every pull request.
+
+**The Node service** (`server/`)
+
+- Meta webhook receiver: signature verified against the raw body, delivery
+  deduped on `(workspace_id, provider_message_id)`, unknown numbers acknowledged
+  and dropped, always 200 once the signature checks out.
+- The SLA engine: working-time arithmetic in the workspace's own zone. A
+  five-minute target on a message at 19:58 on Friday is due at 08:03 on Monday.
+  Both daylight-saving changes are asserted, not assumed.
+- The outbound path: the caller's Supabase session verified (HS256 only), then
+  their role, then the message written in their name — and only then does it
+  reach the provider. A conversation in another workspace answers 404. The
+  example workspace refuses to send at all.
+- A worker that sweeps every minute: resume woken clocks, pause snoozed ones,
+  mark and escalate what is past due. A snooze moves `due_at` on by the working
+  time slept, so it buys time without forgiving the target.
+
+**82 service tests**, including plan.md's own verification for this phase: post a
+synthetic Meta webhook, assert a conversation, a message and an `sla_state` row
+appear with the right `due_at` across a business-hours boundary.
+
+**Auth**
+
+`ProtectedRoute` had `const isAuthenticated = true` in it. It now waits for the
+session rather than deciding early (deciding early signs people out on every
+refresh), redirects to onboarding when a signed-in user belongs to no workspace,
+and gates on role through the same ladder the database enforces. It is not yet
+wrapped around a route: the screens it will guard arrive with real data in phase
+3, and wrapping `/example` would take the public demo behind a login.
+
+**Bugs found by writing the tests**
+
+- The dedupe index is partial, so `on conflict (workspace_id, provider_message_id)`
+  could not infer it — every inbound webhook 500ed until the predicate was
+  repeated in the conflict clause.
+- One membership-check trigger served three tables by naming `new.assignee_id`;
+  plpgsql resolves record fields per table, so it failed on the other two. It
+  reads the column through `to_jsonb(new)` now.
+- `isOpen` said a workspace with no configured hours was always closed, while
+  the two functions beside it treated the same case as always open.
+- The first-response clock could be satisfied by an agent-opened thread, where
+  no customer had ever waited.
+
+**Verified**
+Format, lint, types, 68 client tests with coverage thresholds, 97 database
+tests, 82 service tests, build and 15 end-to-end specs, all green.
+
+**Still outstanding for this phase**
+Supabase Realtime and the large-export endpoints. Realtime needs a hosted
+project to subscribe to, and the exports are not worth building before phase 3
+decides what the screens actually ask for.
+
 ## 2026-08-31 — Removed the fabricated claims (again)
 
 The remote repository's last commit, from 17 August, was "Remove the fabricated

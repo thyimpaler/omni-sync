@@ -9,9 +9,10 @@ uncomfortable to ignore. Urgency is carried by value rather than colour — a br
 target renders as a solid block, a warning as a pale tint, on track as plain type — so
 it survives greyscale, print and colour blindness.
 
-> **Status: front end complete, backend not built.** Every screen works against
-> in-memory demo data; a reload resets it. There is no database, no auth and no channel
-> integration yet. [plan.md](plan.md) is the route from here to something shippable.
+> **Status: screens run on demo data; the backend exists but is not wired to them
+> yet.** The schema, its row-level security and the Node service are built and
+> tested ([plan.md](plan.md) phase 2). What the screens read is still the
+> in-memory seed, and a reload still resets it — connecting the two is phase 3.
 
 ## Running it
 
@@ -23,12 +24,21 @@ npm run dev
 Then open http://localhost:5173. No configuration is needed for the demo — copy
 `.env.example` to `.env.local` when you have a Supabase project to point at.
 
-| Script            | Does                               |
-| ----------------- | ---------------------------------- |
-| `npm run dev`     | Vite dev server with HMR           |
-| `npm run build`   | Production build to `dist/`        |
-| `npm run preview` | Serve the production build locally |
-| `npm run lint`    | ESLint across the repo             |
+| Script            | Does                                                 |
+| ----------------- | ---------------------------------------------------- |
+| `npm run dev`     | Vite dev server with HMR                             |
+| `npm run build`   | Production build to `dist/`                          |
+| `npm run preview` | Serve the production build locally                   |
+| `npm run lint`    | ESLint across the repo                               |
+| `npm run test`    | Unit and component tests                             |
+| `npm run test:db` | Schema and row-level security, against real Postgres |
+| `npm run e2e`     | Playwright flows                                     |
+
+The Node service is a separate package with its own dependencies:
+
+```bash
+cd server && npm install && npm run dev
+```
 
 ## What is where
 
@@ -39,11 +49,29 @@ src/
   pages/        One file per route, marketing and product
   state/        WorkspaceProvider — the conversations, policies and actions that
                 the inbox, queue and sidebar all share
+  hooks/        useConversations, useMembership
   content/      Copy and demo data, kept out of the components
-  lib/          env, supabase (lazily loaded), seo, csv
+  lib/          env, supabase (lazily loaded), seo, csv, roles
   index.css     The design system: tokens, .btn / .input / .tag / .sla utilities
+supabase/       Migrations, and the tests that prove the tenancy rules
+server/         The Node service: webhooks, the SLA engine, outbound sending
 design/         The design system extracted from the source mockups
 ```
+
+## Architecture
+
+Three pieces, and a rule about each:
+
+- **The client** renders and acts. It never computes an SLA clock and never
+  reaches a customer directly.
+- **Postgres** is the tenancy boundary. Every tenant row carries a
+  `workspace_id`, row-level security scopes it to your memberships, and
+  `sla_state` is readable but not writable from a browser.
+  [supabase/README.md](supabase/README.md).
+- **The Node service** does what a browser must not be trusted to do: verify
+  Meta's webhook signatures, run the SLA clock against the workspace's business
+  hours, and be the only path to a customer's handset.
+  [server/README.md](server/README.md).
 
 **Routes.** `/` landing, `/about` `/blog` `/careers` `/contact`, `/privacy` `/terms`
 `/cookies`, `/login` `/signup` `/forgot-password`, `/setup` onboarding, and the

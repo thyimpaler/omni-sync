@@ -8,6 +8,128 @@ Status values: **active**, **superseded**, **revisit**.
 
 ---
 
+## 26. The tenancy tests run against Postgres in WebAssembly
+
+**2026-09-01 · active**
+
+`supabase/tests` boots PGlite — Postgres 18 compiled to WASM — applies the real
+migrations, and exercises the policies as `anon`, `authenticated` and
+`service_role` with `request.jwt.claims` set exactly as PostgREST sets it.
+
+**Why.** plan.md calls an RLS mistake a breach rather than a bug, so the rules
+had to be executed, not reviewed. The conventional route is Docker plus the
+Supabase CLI and pgTAP; neither this machine nor CI has Docker, and a suite that
+cannot run is a suite nobody trusts. PGlite is real Postgres, so `set local
+role`, `security definer` and policy evaluation behave as they do in production,
+and the 97 tests run on every pull request in about thirty seconds.
+
+**Cost.** It is not the same binary Supabase runs, and `supabase/tests/bootstrap.sql`
+has to stand in for the managed `auth` schema — a divergence that could drift.
+The bootstrap is deliberately minimal for that reason. A pgTAP run against a real
+project is still worth adding once one exists.
+
+---
+
+## 25. Cross-workspace references are impossible, not merely forbidden
+
+**2026-09-01 · active**
+
+Child tables reference `(workspace_id, id)` rather than `id`, backed by a
+composite unique constraint on each parent. A trigger makes `workspace_id`
+immutable.
+
+**Why.** RLS decides what a query may read; it does not stop a row being stitched
+to another tenant's row by a writer that bypasses RLS — which the Node service
+does, by design, with `BYPASSRLS`. The composite key means the database itself
+refuses, whoever is asking. The tests prove it by trying it as the service role.
+
+**Cost.** Wider foreign keys and an extra unique index per parent, and
+`on delete set null` needs a column list so it does not try to null a
+`workspace_id`. Both are cheap next to the class of bug removed.
+
+---
+
+## 24. The SLA clock is two clocks, and pausing moves the target
+
+**2026-09-01 · active**
+
+`sla_state` holds one row per `(conversation, kind)` — `first_response` and
+`resolution` — rather than one `due_at` per conversation. A snooze sets
+`paused_at`; resuming shifts `due_at` by the working time that passed.
+
+**Why.** plan.md's sketch had a single `due_at`, but a thread can miss first
+response and still resolve on time, and the Reports screen already shows the two
+separately. On pausing: banking elapsed seconds means two fields that must agree,
+and they eventually will not. Shifting the target needs only `paused_at`, and it
+says the right thing — a snooze buys the team time on the wall clock without
+quietly forgiving the target.
+
+**Cost.** Two rows per conversation, and a policy that sets only one target
+leaves the other clock absent rather than empty. Reads have to say which clock
+they mean.
+
+---
+
+## 23. The service is a separate npm package, not a workspace
+
+**2026-09-01 · active**
+
+`server/` has its own `package.json`, lockfile and `node_modules`. The repository
+root is still the client.
+
+**Why.** The honest structure for two deployables is npm workspaces with the
+client moved into `client/`, but that move would touch the Vercel build, the
+Playwright config, every path in the Vite config and the whole CI file — churn
+with no benefit today. A standalone package keeps Fastify and `pg` out of the
+client's dependency graph and off the Vercel build entirely.
+
+**Cost.** Two `npm ci` runs in CI, two lockfiles to keep patched, and no shared
+types between client and server — the two `atLeast` role ladders are duplicated
+on purpose, each tested. Revisit when the client moves into its own directory.
+
+---
+
+## 22. FORCE ROW LEVEL SECURITY is deliberately not used
+
+**2026-09-01 · active**
+
+Tables are `enable row level security`, not `force`.
+
+**Why.** FORCE subjects the table owner to the policies too, and the owner is
+what runs the `security definer` helpers and the bookkeeping triggers.
+`app.is_member` reads `memberships`, so under FORCE it would evaluate the
+`memberships` policy, which calls `app.is_member` — straight recursion. Worse,
+the trigger that stops a first-response clock updates `sla_state`, which has no
+update policy at all: under FORCE it would silently update zero rows rather than
+fail. Clients never connect as the owner; PostgREST connects as `anon` or
+`authenticated`, and both are fully constrained.
+
+**Cost.** A future direct connection as the owning role would bypass the
+policies. The tenancy suite asserts the roles that actually serve traffic.
+
+---
+
+## 21. Nothing reaches a customer without an agent, enforced three times
+
+**2026-09-01 · active**
+
+The product's core promise is written as a database rule (a browser may insert
+only `direction = 'outbound'` with `sender_id = auth.uid()`), as a service guard
+(session verified, role checked, sender set from the token — never from the
+request body), and as UI copy.
+
+**Why.** It is the claim the whole product rests on, and copy enforces nothing.
+The database rule holds even if the service is compromised; the service guard
+holds for the paths RLS cannot see, such as talking to Meta at all. Inbound
+messages are the mirror image: only `service_role` can write them, so an agent
+cannot fabricate what a customer said.
+
+**Cost.** The reply path costs a round-trip through the service instead of a
+direct Supabase insert, and the two role ladders have to stay in step. Both are
+tested.
+
+---
+
 ## 20. No performance claim the product cannot evidence
 
 **2026-08-31 · active · user decision**

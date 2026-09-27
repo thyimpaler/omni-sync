@@ -37,6 +37,11 @@ jobs:
       - name: Unit tests and coverage thresholds
         run: npm run coverage
 
+      # Runs the migrations into PGlite (Postgres in WebAssembly) and asserts
+      # the tenancy rules against them. No Docker, no hosted project.
+      - name: Database tests (schema and RLS)
+        run: npm run test:db
+
       - name: Build
         run: npm run build
 
@@ -46,6 +51,31 @@ jobs:
           name: dist
           path: dist
           retention-days: 7
+
+  server:
+    name: Node service
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: server
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: server/package-lock.json
+
+      - run: npm ci
+
+      - name: Types
+        run: npm run typecheck
+
+      # Webhook receiver, reply endpoint and SLA engine, against PGlite with the
+      # project's own migrations applied.
+      - name: Tests
+        run: npm test
 
   e2e:
     name: End-to-end
